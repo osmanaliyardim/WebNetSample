@@ -1,0 +1,13 @@
+﻿@using WebNetSample.Models.Entities;
+@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Categories Page";
+}
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item.Name</li>
+    }
+</ul>

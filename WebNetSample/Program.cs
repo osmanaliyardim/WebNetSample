@@ -1,7 +1,18 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.Extensions.Configuration;
+using WebNetSample.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
+var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager configuration = builder.Configuration;
+//IWebHostEnvironment environment = builder.Environment;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+string conStr = configuration.GetConnectionString("WebNetSampleConnectionString");
+builder.Services.AddDbContext<BaseDbContext>(options =>
+    options.UseSqlServer(conStr));
 
 var app = builder.Build();
 
@@ -18,6 +29,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -25,4 +37,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
