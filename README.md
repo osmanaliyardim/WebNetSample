@@ -28,15 +28,14 @@ Run WebNetSample.sln in the root directory; <br>
 Depending on your OS, choose IIS or Kestrel as hosting webservices; <br>
 Make sure your MSSQL database instance is running. Otherwise you will not be able to launch app; <br>
 Start the application; <br>
-Visit the following URL: https://localhost:4988/.<br>
+Visit the following URL: http://localhost:55810 or https://localhost:4988/.<br>
 ...<br>
 <h3> Testing </h3>
 Application supports the following types of tests: <br>
 
 Unit <br>
-... <br>
-To be able to run Unit or Integration tests, run the following command <br>
 
+To be able to run Unit or Integration tests, run the following command <br>
 dotnet test . <br>
 ... <br>
 
