@@ -1,0 +1,10 @@
+# Each line is a file pattern followed by one or more owners.
+
+# Global Owners
+*       @osmanaliyardim @dotnet-fizzyy
+
+# JS File Owners
+*.js    @osmanaliyardim @dotnet-fizzyy
+
+# /scripts Folder Owners
+/scripts/ @osmanaliyardim @dotnet-fizzyy
