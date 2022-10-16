@@ -1,7 +1,8 @@
-﻿using System;
-namespace WebNetSample.Models.Dtos
+﻿using WebNetSample.Core.Entities;
+
+namespace WebNetSample.Entity.Dtos
 {
-    public class ProductDto
+    public class ProductDetailDto : BaseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

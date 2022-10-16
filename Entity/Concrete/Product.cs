@@ -1,5 +1,6 @@
-﻿using System;
-namespace WebNetSample.Models.Entities
+﻿using WebNetSample.Core.Entities;
+
+namespace WebNetSample.Entity.Concrete
 {
     public class Product : BaseEntity
     {
@@ -29,4 +30,3 @@ namespace WebNetSample.Models.Entities
         }
     }
 }
-

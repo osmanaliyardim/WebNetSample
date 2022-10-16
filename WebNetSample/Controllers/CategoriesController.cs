@@ -1,28 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebNetSample.Contexts;
-using WebNetSample.Models.Entities;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
+using WebNetSample.Entity.Concrete;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace WebNetSample.Controllers
+namespace WebNetSample.WebNetMVC.Controllers
 {
     public class CategoriesController : Controller
     {
-        private BaseDbContext _context { get; }
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesController(BaseDbContext context)
+        public CategoriesController(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Category> categories = (from category in _context.Categories.Take(10)
+            //List<Category> categories = (from category in _context.Categories.Take(10)
+            //select category).ToList();
+
+            List<Category> categories = (from category in _categoryService.GetList().Take(10)
                                          select category).ToList();
 
             return View(categories);
         }
     }
 }
-

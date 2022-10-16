@@ -1,32 +1,39 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using WebNetSample.Models.Entities;
+using WebNetSample.Entity.Concrete;
 
-namespace WebNetSample.Contexts
+namespace DataAccess.Concrete.EntityFramework.Contexts
 {
-    public class BaseDbContext : DbContext
+    public class WebNetSampleDBContext : DbContext
     {
         protected IConfiguration Configuration { get; set; }
-        public DbSet<Category> Categories { get; set; }
+
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 
-        public BaseDbContext()
+        public WebNetSampleDBContext()
         {
 
         }
 
-        public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
+        public WebNetSampleDBContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
             Configuration = configuration;
         }
 
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //        base.OnConfiguring(optionsBuilder.UseSqlServer(Configuration.GetConnectionString("WebNetSampleConnectionString")));
+        //}
+
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-               base.OnConfiguring(optionsBuilder.UseSqlServer(Configuration.GetConnectionString("WebNetSampleConnectionString")));
+            optionsBuilder.UseSqlServer(connectionString: @"Server=DESKTOP-5JKESUF\SQLEXPRESS;Database=WebNetSampleDB;Trusted_Connection=true");
         }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -69,20 +76,20 @@ namespace WebNetSample.Contexts
             });
 
             // Seed data for product CATEGORIES
-            //Category[] categoryEntitySeeds = { new(1, "Toy"), new(2, "Food") };
-            //modelBuilder.Entity<Category>().HasData(categoryEntitySeeds);
+            Category[] categoryEntitySeeds = { new(1, "Toy"), new(2, "Food") };
+            modelBuilder.Entity<Category>().HasData(categoryEntitySeeds);
 
             // Seed data for PRODUCTS
-            //Product[] productEntitySeeds =
-            //{
-            //    new(1, 1, 1, "Duck", 20, ""),
-            //    new(1, 2, 2, "Biscuit", 3, "")
-            //};
-            //modelBuilder.Entity<Product>().HasData(productEntitySeeds);
+            Product[] productEntitySeeds =
+            {
+                new(1, 1, 1, "Duck", 20, ""),
+                new(2, 2, 2, "Biscuit", 3, "")
+            };
+            modelBuilder.Entity<Product>().HasData(productEntitySeeds);
 
             // Seed data for product SUPPLIERS
-            //Supplier[] supplierEntitySeeds = { new(1, "Toyz Toyz Shop"), new(2, "Ülker") };
-            //modelBuilder.Entity<Supplier>().HasData(supplierEntitySeeds);
+            Supplier[] supplierEntitySeeds = { new(1, "Toyz Toyz Shop"), new(2, "Ülker") };
+            modelBuilder.Entity<Supplier>().HasData(supplierEntitySeeds);
         }
     }
 }

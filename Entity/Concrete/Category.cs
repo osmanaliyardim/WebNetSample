@@ -1,5 +1,6 @@
-﻿using System;
-namespace WebNetSample.Models.Entities
+﻿using WebNetSample.Core.Entities;
+
+namespace WebNetSample.Entity.Concrete
 {
     public class Category : BaseEntity
     {
@@ -18,4 +19,3 @@ namespace WebNetSample.Models.Entities
         }
     }
 }
-

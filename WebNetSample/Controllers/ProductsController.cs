@@ -1,53 +1,59 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebNetSample.Contexts;
-using WebNetSample.Models.Dtos;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
+using WebNetSample.Entity.Dtos;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace WebNetSample.Controllers
+namespace WebNetSample.WebNetMVC.Controllers
 {
     public class ProductsController : Controller
     {
-        private BaseDbContext _context { get; }
+        private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
+        private readonly ISupplierService _supplierService;
 
-        public ProductsController(BaseDbContext context)
+        public ProductsController(IProductService productService, ICategoryService categoryService, ISupplierService supplierService)
         {
-            _context = context;
+            _productService = productService;
+            _categoryService = categoryService;
+            _supplierService = supplierService; 
         }
 
-        // GET: /<controller>/
         public IActionResult Index()
         {
-            var products = (from product in _context.Products
-                                      join category in _context.Categories on product.CategoryId equals category.Id 
-                                      join supplier in _context.Suppliers on product.SupplierId equals supplier.Id
-                                         select new {
-                                            Id = product.Id,
-                                            Name = product.Name,
-                                            Price = product.Price,
-                                            ImageUrl = product.ImageUrl,
-                                            CategoryName = category.Name,
-                                            SupplierName = supplier.Name
-                                         }).Take(10).ToList();
+            //var products = _productService.GetList();
 
-            List<ProductDto> productList = new List<ProductDto>();
+            //var productsWithCategoriesAndSuppliers = (from product in _productService.GetList()
+            //                join category in _categoryService.GetList() on product.CategoryId equals category.Id
+            //                join supplier in _supplierService.GetList() on product.SupplierId equals supplier.Id
+            //                select new
+            //                {
+            //                    Id = product.Id,
+            //                    Name = product.Name,
+            //                    Price = product.Price,
+            //                    ImageUrl = product.ImageUrl,
+            //                    CategoryName = category.Name,
+            //                    SupplierName = supplier.Name
+            //                }).Take(10).ToList();
 
-            for (int i = 0; i < products.Count; i++)
-            {
-                ProductDto product = new ProductDto
-                {
-                    Id = products[i].Id,
-                    Name = products[i].Name,
-                    Price = products[i].Price,
-                    ImageUrl = products[i].ImageUrl,
-                    CategoryName = products[i].CategoryName,
-                    SupplierName = products[i].SupplierName
-                };
+            //List<ProductDetailDto> resultList = new List<ProductDetailDto>();
 
-                productList.Add(product);
-            }
+            //for (int i = 0; i < productsWithCategoriesAndSuppliers.Count; i++)
+            //{
+            //    ProductDetailDto product = new ProductDetailDto
+            //    {
+            //        Id = productsWithCategoriesAndSuppliers[i].Id,
+            //        Name = productsWithCategoriesAndSuppliers[i].Name,
+            //        Price = productsWithCategoriesAndSuppliers[i].Price,
+            //        ImageUrl = productsWithCategoriesAndSuppliers[i].ImageUrl,
+            //        CategoryName = productsWithCategoriesAndSuppliers[i].CategoryName,
+            //        SupplierName = productsWithCategoriesAndSuppliers[i].SupplierName
+            //    };
 
-            return View(productList);
+            //    resultList.Add(product);
+            //}
+
+            List<ProductDetailDto> productsWithDetails = _productService.GetProductDetails();
+
+            return View(productsWithDetails);
         }
     }
 }

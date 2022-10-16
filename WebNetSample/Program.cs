@@ -1,9 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
-using WebNetSample.Contexts;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Business.DependencyResolvers.Autofac;
+using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+// Register services directly with Autofac here. Don't
+// call builder.Populate(), that happens in AutofacServiceProviderFactory.
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
+
 ConfigurationManager configuration = builder.Configuration;
 //IWebHostEnvironment environment = builder.Environment;
 
@@ -11,7 +19,7 @@ ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddControllersWithViews();
 
 string conStr = configuration.GetConnectionString("WebNetSampleConnectionString");
-builder.Services.AddDbContext<BaseDbContext>(options =>
+builder.Services.AddDbContext<WebNetSampleDBContext>(options =>
     options.UseSqlServer(conStr));
 
 var app = builder.Build();

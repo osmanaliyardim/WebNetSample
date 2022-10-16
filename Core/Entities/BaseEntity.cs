@@ -1,5 +1,4 @@
-﻿using System;
-namespace WebNetSample.Models.Entities
+﻿namespace WebNetSample.Core.Entities
 {
     public class BaseEntity
     {
@@ -15,4 +14,3 @@ namespace WebNetSample.Models.Entities
         }
     }
 }
-

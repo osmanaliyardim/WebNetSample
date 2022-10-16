@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace WebNetSample.Migrations
+namespace DataAccess.Migrations
 {
     public partial class AddEntitiesToDB : Migration
     {
@@ -97,6 +97,33 @@ namespace WebNetSample.Migrations
                         principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Toy" },
+                    { 2, "Food" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "ImageUrl", "Name", "Price", "SupplierId" },
+                values: new object[,]
+                {
+                    { 1, 1, "", "Duck", 20m, 1 },
+                    { 2, 2, "", "Biscuit", 3m, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Suppliers",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Toyz Toyz Shop" },
+                    { 2, "Ülker" }
                 });
 
             migrationBuilder.CreateIndex(
