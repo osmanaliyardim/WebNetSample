@@ -1,0 +1,13 @@
+﻿@using WebNetSample.Entity.Concrete;
+@model IEnumerable<Supplier>
+
+@{
+    ViewData["Title"] = "Suppliers Page";
+}
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
