@@ -1,23 +1,22 @@
 ﻿using Autofac;
-using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
+using WebNetSample.DataAccess.Abstract;
+using WebNetSample.DataAccess.Concrete.EntityFramework;
+using WebNetSample.Business.Abstract;
+using WebNetSample.Business.Concrete;
 
-namespace Business.DependencyResolvers.Autofac
+namespace WebNetSample.Business.DependencyResolvers.Autofac;
+
+public class AutofacBusinessModule : Module
 {
-    public class AutofacBusinessModule : Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
-            builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
+        builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
+        builder.RegisterType<EfProductRepository>().As<IProductRepository>().SingleInstance();
 
-            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
-            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+        builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+        builder.RegisterType<EfCategoryRepository>().As<ICategoryRepository>().SingleInstance();
 
-            builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
-            builder.RegisterType<EfSupplierDal>().As<ISupplierDal>().SingleInstance();
-        }
+        builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
+        builder.RegisterType<EfSupplierRepository>().As<ISupplierRepository>().SingleInstance();
     }
 }

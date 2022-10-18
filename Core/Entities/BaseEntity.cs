@@ -1,16 +1,18 @@
-﻿namespace WebNetSample.Core.Entities
+﻿namespace WebNetSample.Core.Entities;
+
+public class BaseEntity
 {
-    public class BaseEntity
+    public Guid Id { get; set; }
+    
+    public DateTime CreationDate { get; set; }
+
+    public BaseEntity()
     {
-        public int Id { get; set; }
+    }
 
-        public BaseEntity()
-        {
-        }
-
-        public BaseEntity(int id) : this()
-        {
-            Id = id;
-        }
+    public BaseEntity(Guid id, DateTime creationDate) : this()
+    {
+        Id = id;
+        CreationDate = creationDate;
     }
 }

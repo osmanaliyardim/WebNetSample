@@ -1,14 +1,19 @@
 ﻿using System.Linq.Expressions;
 using WebNetSample.Core.Entities;
 
-namespace Core.DataAccess
+namespace WebNetSample.Core.DataAccess;
+
+public interface IEntityRepository<T> where T : BaseEntity, new()
 {
-    public interface IEntityRepository<T> where T : BaseEntity, new()
-    {
-        T Get(Expression<Func<T, bool>> filter);
-        IList<T> GetList(Expression<Func<T, bool>> filter = null);
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-    }
+
+    Task<T> GetAsync(Expression<Func<T, bool>> filter);
+
+    Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null);
+
+    Task AddAsync(T entity);
+
+    void Update(T entity);
+
+    void Delete(Expression<Func<T, bool>> filter);
+
 }

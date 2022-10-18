@@ -1,28 +1,21 @@
-﻿using Business.Abstract;
-using Microsoft.AspNetCore.Mvc;
-using WebNetSample.Entity.Concrete;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebNetSample.Business.Abstract;
 
-namespace WebNetSample.WebNetMVC.Controllers
+namespace WebNetSample.WebNetMVC.Controllers;
+
+public class CategoriesController : Controller
 {
-    public class CategoriesController : Controller
+    private readonly ICategoryService _categoryService;
+
+    public CategoriesController(ICategoryService categoryService)
     {
-        private readonly ICategoryService _categoryService;
+        _categoryService = categoryService;
+    }
 
-        public CategoriesController(ICategoryService categoryService)
-        {
-            _categoryService = categoryService;
-        }
+    public async Task<IActionResult> Index()
+    {
+        var categories = await _categoryService.GetListAsync();
 
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            //List<Category> categories = (from category in _context.Categories.Take(10)
-            //select category).ToList();
-
-            List<Category> categories = (from category in _categoryService.GetList().Take(10)
-                                         select category).ToList();
-
-            return View(categories);
-        }
+        return View(categories);
     }
 }

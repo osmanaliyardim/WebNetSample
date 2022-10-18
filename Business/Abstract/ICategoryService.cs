@@ -1,14 +1,11 @@
 ﻿using WebNetSample.Entity.Concrete;
 
-namespace Business.Abstract
+namespace WebNetSample.Business.Abstract;
+
+public interface ICategoryService
 {
-    public interface ICategoryService
-    {
-        List<Category> GetList();
-        Category GetById(int categoryId);
-        void Add(Category category);
-        void Delete(Category category);
-        void Update(Category category);
-        int GetCount();
-    }
+    Task<List<Category>> GetListAsync();
+
+    Task<Category> GetByIdAsync(Guid categoryId);
+
 }

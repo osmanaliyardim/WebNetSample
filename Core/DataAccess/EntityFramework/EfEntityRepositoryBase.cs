@@ -2,58 +2,47 @@
 using System.Linq.Expressions;
 using WebNetSample.Core.Entities;
 
-namespace Core.DataAccess.EntityFramework
+namespace WebNetSample.Core.DataAccess.EntityFramework;
+
+public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
+     where TEntity : BaseEntity, new()
+     where TContext : DbContext, new()
 {
-    public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
-         where TEntity : BaseEntity, new()
-         where TContext : DbContext, new()
+    protected readonly TContext DbContext;
+
+    private readonly DbSet<TEntity> _dbSet;
+
+    protected EfEntityRepositoryBase(TContext dbContext)
     {
-        public void Add(TEntity entity)
-        {
-            using (var context = new TContext())
-            {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(TEntity entity)
-        {
-            using (var context = new TContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
-
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
-        {
-            using (var context = new TContext())
-            {
-                return context.Set<TEntity>().SingleOrDefault(filter);
-            }
-        }
-
-        public IList<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
-        {
-            using (var context = new TContext())
-            {
-                return filter == null
-                    ? context.Set<TEntity>().ToList()
-                    : context.Set<TEntity>().Where(filter).ToList();
-            }
-        }
-
-        public void Update(TEntity entity)
-        {
-            using (var context = new TContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
+        DbContext = dbContext;
+        _dbSet = DbContext.Set<TEntity>();
     }
+
+    public async Task AddAsync(TEntity entity)
+    {
+        await _dbSet.AddAsync(entity);
+    }
+
+    public void Delete(Expression<Func<TEntity, bool>> filter)
+    {
+        _dbSet.RemoveRange(_dbSet.Where(filter));
+    }
+
+    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
+    {
+        var query = _dbSet.Where(filter);
+
+        var item = await query.SingleOrDefaultAsync();
+
+        return item;
+    }
+
+    public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null) =>
+            filter == null ? await _dbSet.ToListAsync() : await _dbSet.Where(filter).ToListAsync();
+
+    public void Update(TEntity entity)
+    {
+        _dbSet.Update(entity);
+    }
+
 }

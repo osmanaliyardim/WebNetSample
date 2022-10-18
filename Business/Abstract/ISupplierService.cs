@@ -1,13 +1,12 @@
 ﻿using WebNetSample.Entity.Concrete;
 
-namespace Business.Abstract
+namespace WebNetSample.Business.Abstract;
+
+public interface ISupplierService
 {
-    public interface ISupplierService
-    {
-        List<Supplier> GetList();
-        Supplier GetById(int supplierId);
-        void Add(Supplier supplier);
-        void Delete(Supplier supplier);
-        void Update(Supplier supplier);
-    }
+
+    Task<List<Supplier>> GetListAsync();
+
+    Task<Supplier> GetByIdAsync(Guid supplierId);
+
 }

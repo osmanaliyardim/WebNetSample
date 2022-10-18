@@ -1,10 +1,16 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Business.DependencyResolvers.Autofac;
-using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
+using WebNetSample.Business.DependencyResolvers.Autofac;
+using WebNetSample.DataAccess.Concrete.EntityFramework.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//string connString = builder.Configuration.GetConnectionString("WebNetSampleConnectionString");
+builder.Services.AddDbContext<WebNetSampleDBContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("WebNetSampleConnectionStringForWindows"));
+});
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
@@ -13,14 +19,9 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 ConfigurationManager configuration = builder.Configuration;
-//IWebHostEnvironment environment = builder.Environment;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-string conStr = configuration.GetConnectionString("WebNetSampleConnectionString");
-builder.Services.AddDbContext<WebNetSampleDBContext>(options =>
-    options.UseSqlServer(conStr));
 
 var app = builder.Build();
 
@@ -37,7 +38,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

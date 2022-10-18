@@ -1,18 +1,27 @@
 ﻿using WebNetSample.Entity.Concrete;
 using WebNetSample.Entity.Dtos;
 
-namespace Business.Abstract
+namespace WebNetSample.Business.Abstract;
+
+public interface IProductService
 {
-    public interface IProductService
-    {
-        List<Product> GetList();
-        List<Product> GetListByCategory(int categoryId);
-        List<ProductDetailDto> GetProductDetails();
-        List<ProductDetailDto> GetProductDetailsByCategory(int categoryId);
-        List<ProductDetailDto> GetProductDetailsBySupplier(int supplierId);
-        Product GetById(int productId);
-        void Add(Product product);
-        void Delete(Product product);
-        void Update(Product product);
-    }
+
+    Task<List<Product>> GetListAsync();
+
+    Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId);
+
+    Task<List<ProductDetailDto>> GetProductDetailsAsync();
+
+    Task<List<ProductDetailDto>> GetProductDetailsByCategoryIdAsync(Guid categoryId);
+
+    Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId);
+
+    Task<Product> GetByIdAsync(Guid productId);
+
+    Task Add(Product product);
+
+    void Delete(Product product);
+
+    void Update(Product product);
+
 }
