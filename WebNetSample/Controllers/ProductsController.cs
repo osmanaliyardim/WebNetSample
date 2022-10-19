@@ -34,12 +34,6 @@ public class ProductsController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        Guid id = Guid.NewGuid();
-        DateTime date = DateTime.Now;
-
-        ViewBag.Id = id;
-        ViewBag.CreationDate = date;
-
         return View();
     }
 
@@ -52,11 +46,13 @@ public class ProductsController : Controller
     }
 
     [HttpGet]
-    public IActionResult Edit(string productToEdit)
+    public IActionResult Edit(Guid id)
     {
-        var product = JsonConvert.DeserializeObject<Product>(productToEdit);
+        var productToEditTask = _productService.GetByIdAsync(id);
 
-        return View(product);
+        var productToEdit = productToEditTask.Result;
+
+        return View(productToEdit);
     }
 
     [HttpPost]

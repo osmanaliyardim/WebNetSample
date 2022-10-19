@@ -10,7 +10,7 @@
         <tr>
             <td>Id: </td>
             <td>
-                <input type="text" id="Id" name="Id" value="@ViewBag.Id" disabled>
+                <input type="text" id="Id" name="Id" value="@Guid.NewGuid()" disabled>
             </td>
         </tr>
         <tr>
@@ -48,11 +48,10 @@
         <tr>
             <td>Creation Date: </td>
             <td>
-                <input type="text" id="CreationDate" name="CreationDate" value="@ViewBag.CreationDate" disabled>
+                <input type="text" id="CreationDate" name="CreationDate" value="@DateTime.Now" disabled>
             </td>
         </tr>
         <tr>
-            <td></td>
             <td><input type="submit" value="Submit" /></td>
         </tr>
     </table>

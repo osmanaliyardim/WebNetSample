@@ -61,7 +61,7 @@
                     @Html.DisplayFor(modelItem => item.SupplierName)
                 </td>
                 <td>
-                    <a class="btn btn-warning" asp-controller="Products" asp-action="Edit" asp-route-productToEdit="@JsonConvert.SerializeObject(@item)">EDIT</a>
+                    <a class="btn btn-warning" asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id">EDIT</a>
                     <a class="btn btn-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id">DELETE</a>
                 </td>
             </tr>
