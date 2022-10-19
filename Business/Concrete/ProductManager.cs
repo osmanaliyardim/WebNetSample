@@ -17,12 +17,10 @@ public class ProductManager : IProductService
         _productRepository = productRepository;
     }
 
-    [ValidationAspect(typeof(ProductValidator))]
     public Task AddAsync(Product product) => _productRepository.AddAsync(product);
 
     public void Delete(Product product) => _productRepository.Delete(p => p.Id == product.Id);
 
-    [ValidationAspect(typeof(ProductValidator))]
     public void Update(Product product) => _productRepository.Update(product);
 
     public async Task<Product> GetByIdAsync(Guid productId) => 
