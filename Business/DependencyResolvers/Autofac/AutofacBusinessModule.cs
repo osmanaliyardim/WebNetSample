@@ -1,12 +1,12 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
+using Module = Autofac.Module;
+using System.Reflection;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Business.Concrete;
-using WebNetSample.Core.Pagination;
-using System.Reflection;
-using Castle.DynamicProxy;
 using WebNetSample.Core.Utilities.Interceptors;
-using Autofac.Extras.DynamicProxy;
-using Module = Autofac.Module;
+using WebNetSample.Core.Pagination;
 
 namespace WebNetSample.Business.DependencyResolvers.Autofac;
 

@@ -26,6 +26,10 @@ public class ValidationAspect : MethodInterception
         var validator = (IValidator)Activator.CreateInstance(_validatorType);
         var entityType = _validatorType.BaseType.GetGenericArguments()[0];
         var entities = invocation.Arguments.Where(t => t.GetType() == entityType);
-        foreach (var entity in entities) ValidationTool.Validate(validator, entity);
+        
+        foreach (var entity in entities)
+        { 
+            ValidationTool.Validate(validator, entity); 
+        }
     }
 }

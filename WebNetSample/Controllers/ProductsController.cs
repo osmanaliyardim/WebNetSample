@@ -2,7 +2,6 @@
 using WebNetSample.Business.Abstract;
 using WebNetSample.Core.Pagination;
 using WebNetSample.Entity.Concrete;
-using Newtonsoft.Json;
 
 namespace WebNetSample.WebNetMVC.Controllers;
 
@@ -38,7 +37,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public async Task<ActionResult> Add(Product product)
+    public async Task<IActionResult> Add(Product product)
     {
         await _productService.AddAsync(product);
 
@@ -46,17 +45,15 @@ public class ProductsController : Controller
     }
 
     [HttpGet]
-    public IActionResult Edit(Guid id)
+    public async Task<IActionResult> Edit(Guid id)
     {
-        var productToEditTask = _productService.GetByIdAsync(id);
-
-        var productToEdit = productToEditTask.Result;
+        var productToEdit = await _productService.GetByIdAsync(id);
 
         return View(productToEdit);
     }
 
     [HttpPost]
-    public IActionResult Update(Product updatedProduct)
+    public async Task<IActionResult> Update(Product updatedProduct)
     {
         _productService.Update(updatedProduct);
 

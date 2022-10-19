@@ -10,7 +10,7 @@ public class ProductValidator : AbstractValidator<Product>
         RuleFor(product => product.Name)
             .MinimumLength(3)
             .MaximumLength(30)
-            .WithMessage("Product name must contain between 3-50 characters.");
+            .WithMessage("Product name must contain between 3-30 characters.");
 
         RuleFor(product => product.Name)
             .NotNull()
