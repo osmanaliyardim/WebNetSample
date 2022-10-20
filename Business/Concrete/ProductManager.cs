@@ -1,4 +1,6 @@
 ﻿using WebNetSample.Business.Abstract;
+using WebNetSample.Business.ValidationRules.FluentValidation;
+using WebNetSample.Core.Aspects.Validation;
 using WebNetSample.Core.Pagination;
 using WebNetSample.DataAccess.Abstract;
 using WebNetSample.Entity.Concrete;

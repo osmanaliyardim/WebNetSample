@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
-using WebNetSample.Core.Entities;
 using WebNetSample.Entity.Concrete;
 
 namespace WebNetSample.DataAccess.Concrete.EntityFramework.Contexts;
@@ -18,11 +16,6 @@ public class WebNetSampleDBContext : DbContext
     {
         Configuration = configuration;
     }
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    optionsBuilder.UseSqlServer(connectionString: @"Server=DESKTOP-5JKESUF\SQLEXPRESS;Database=WebNetSampleDB;Trusted_Connection=true");
-    //}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

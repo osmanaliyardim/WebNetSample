@@ -1,0 +1,69 @@
+﻿@using WebNetSample.Entity.Concrete;
+@model Product
+
+<form asp-action="Add" asp-controller="Products" method="post">
+    
+    <div asp-validation-summary="ModelOnly">
+        <span>Please correct the following errors</span>
+    </div>
+
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th colspan="2" align="center">Product Details</th>
+        </tr>
+        <tr>
+            <td>Id: </td>
+            <td>
+                <input type="text" id="Id" name="Id" value="@Guid.NewGuid()" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>Name: </td>
+            <td>
+                <input asp-for="Name" /> <span class="text-danger" asp-validation-for="Name"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Category: </td>
+            <td>
+                @Html.DropDownListFor(m => m.CategoryId, new List<SelectListItem>
+            { new SelectListItem{Text="Toys", Value="cc1fd238-f590-483e-ab5c-15006f73eb92"}}, "Please select a category")
+            </td>
+        </tr>
+        <tr>
+            <td>Supplier: </td>
+            <td>
+                @Html.DropDownListFor(m => m.SupplierId, new List<SelectListItem>
+            { new SelectListItem{Text="Xyz", Value="aa1e7065-a0cf-467f-942c-cba70a5f7b61"}}, "Please select a supplier")
+            </td>
+        </tr>
+        <tr>
+            <td>Price: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Price)
+                <span class="text-danger" asp-validation-for="Price"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Image URL: </td>
+            <td>
+                @Html.TextBoxFor(m => m.ImageUrl)
+                <span class="text-danger" asp-validation-for="ImageUrl"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Creation Date: </td>
+            <td>
+                <input type="text" id="CreationDate" name="CreationDate" value="@DateTime.Now" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+
+@section Scripts {   
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}
