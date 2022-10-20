@@ -1,8 +1,12 @@
 ﻿@using WebNetSample.Entity.Concrete;
 @model Product
 
-@using (Html.BeginForm("Add", "Products", FormMethod.Post))
-{
+<form asp-action="Add" asp-controller="Products" method="post">
+    
+    <div asp-validation-summary="ModelOnly">
+        <span>Please correct the following errors</span>
+    </div>
+
     <table cellpadding="0" cellspacing="0">
         <tr>
             <th colspan="2" align="center">Product Details</th>
@@ -16,7 +20,7 @@
         <tr>
             <td>Name: </td>
             <td>
-                @Html.TextBoxFor(m => m.Name)
+                <input asp-for="Name" /> <span class="text-danger" asp-validation-for="Name"></span>
             </td>
         </tr>
         <tr>
@@ -37,12 +41,14 @@
             <td>Price: </td>
             <td>
                 @Html.TextBoxFor(m => m.Price)
+                <span class="text-danger" asp-validation-for="Price"></span>
             </td>
         </tr>
         <tr>
             <td>Image URL: </td>
             <td>
                 @Html.TextBoxFor(m => m.ImageUrl)
+                <span class="text-danger" asp-validation-for="ImageUrl"></span>
             </td>
         </tr>
         <tr>
@@ -55,4 +61,9 @@
             <td><input type="submit" value="Submit" /></td>
         </tr>
     </table>
+</form>
+
+@section Scripts {   
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
 }
