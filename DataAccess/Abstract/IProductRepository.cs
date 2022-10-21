@@ -7,5 +7,5 @@ namespace WebNetSample.DataAccess.Abstract;
 
 public interface IProductRepository : IEntityRepository<Product>
 {
-    Task<List<ProductDetailDto>> GetProductDetailsAsync(Expression<Func<Product, bool>> filter = null);
+
 }
