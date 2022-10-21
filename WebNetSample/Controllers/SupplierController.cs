@@ -12,7 +12,6 @@ public class SuppliersController : Controller
         _supplierService = supplierService;
     }
 
-    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var suppliers = await _supplierService.GetListAsync();    

@@ -4,11 +4,9 @@ public abstract class PaginationParameters
 {
     const int maxPageSize = 48;
 
-    private int _pageSize = 12;
-
-    private int _recordsToSkip = 1;
-
     public int PageNumber { get; set; } = 1;
+
+    private int _pageSize = 12;
 
     public int PageSize
     {
@@ -19,14 +17,6 @@ public abstract class PaginationParameters
         set
         {
             _pageSize = (value > maxPageSize) ? maxPageSize : value;
-        }
-    }
-
-    public int RecordsToSkip
-    {
-        get
-        {
-            return _recordsToSkip = (PageNumber - 1) * PageSize;
         }
     }
 }

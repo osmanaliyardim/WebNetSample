@@ -1,5 +1,4 @@
-﻿using Autofac.Core;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Core.Pagination;
 using WebNetSample.Entity.Concrete;
@@ -10,17 +9,13 @@ public class ProductsController : Controller
 {
     private readonly IProductService _productService;
     private readonly PaginationParameters _paginationParameters;
-    private readonly IConfiguration _configuration;
 
-    public ProductsController(IProductService productService, PaginationParameters paginationParameters,
-        IConfiguration configuration)
+    public ProductsController(IProductService productService, PaginationParameters paginationParameters)
     {
         _productService = productService;
         _paginationParameters = paginationParameters;
-        _configuration = configuration;
     }
 
-    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var productsWithDetails = await _productService.GetProductDetailsAsync();
@@ -28,14 +23,9 @@ public class ProductsController : Controller
         return View(productsWithDetails);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetProducts()
+    public async Task<IActionResult> AllProducts()
     {
-        var paginationJson = _configuration.GetSection("PaginationLimitsAndOffsets");
-
-        var paginationParameters = paginationJson.Get<PaginationParameters>();
-
-        var productsWithDetails = await _productService.GetListAsync(paginationParameters);
+        var productsWithDetails = await _productService.GetListAsync(_paginationParameters);
 
         return View(productsWithDetails);
     }

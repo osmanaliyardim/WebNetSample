@@ -20,6 +20,8 @@ public class AutofacBusinessModule : Module
 
         builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
 
+        builder.RegisterType<PaginationParameter>().As<PaginationParameters>().SingleInstance();
+
         var assembly = Assembly.GetExecutingAssembly();
         builder.RegisterAssemblyTypes(assembly)
             .AsImplementedInterfaces()
