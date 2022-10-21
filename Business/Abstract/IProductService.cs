@@ -1,4 +1,5 @@
-﻿using WebNetSample.Core.Pagination;
+﻿using Entity.Concrete;
+using WebNetSample.Core.Pagination;
 using WebNetSample.Entity.Concrete;
 using WebNetSample.Entity.Dtos;
 
@@ -11,11 +12,11 @@ public interface IProductService
 
     Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId);
 
-    Task<List<ProductDetailDto>> GetProductDetailsAsync();
+    Task<List<ProductDetails>> GetProductDetailsAsync();
 
-    Task<List<ProductDetailDto>> GetProductDetailsByCategoryIdAsync(Guid categoryId);
+    Task<List<ProductDetails>> GetProductDetailsByCategoryIdAsync(Guid categoryId);
 
-    Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId);
+    Task<List<ProductDetails>> GetProductDetailsBySupplierIdAsync(Guid supplierId);
 
     Task<Product> GetByIdAsync(Guid productId);
 

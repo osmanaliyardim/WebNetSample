@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entity.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using WebNetSample.Core.DataAccess.EntityFramework;
 using WebNetSample.DataAccess.Abstract;
@@ -17,12 +18,12 @@ public class EfProductRepository : EfEntityRepositoryBase<Product, WebNetSampleD
         context = databaseContext;
     }
 
-    public async Task<List<ProductDetailDto>> GetProductDetailsAsync(Expression<Func<Product, bool>> filter = null)
+    public async Task<List<ProductDetails>> GetProductDetailsAsync(Expression<Func<Product, bool>> filter = null)
     {
         var result = from product in context.Products
                      join category in context.Categories on product.CategoryId equals category.Id
                      join supplier in context.Suppliers on product.SupplierId equals supplier.Id
-                     select new ProductDetailDto()
+                     select new ProductDetails()
                      {
                          Id = product.Id,
                          Name = product.Name,

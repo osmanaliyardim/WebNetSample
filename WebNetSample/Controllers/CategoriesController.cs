@@ -12,6 +12,7 @@ public class CategoriesController : Controller
         _categoryService = categoryService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var categories = await _categoryService.GetListAsync();

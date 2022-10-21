@@ -1,4 +1,5 @@
-﻿using WebNetSample.Business.Abstract;
+﻿using Entity.Concrete;
+using WebNetSample.Business.Abstract;
 using WebNetSample.Business.ValidationRules.FluentValidation;
 using WebNetSample.Core.Aspects.Validation;
 using WebNetSample.Core.Pagination;
@@ -34,13 +35,13 @@ public class ProductManager : IProductService
     public async Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId) => 
         await _productRepository.GetListAsync(entity => entity.CategoryId == categoryId);
 
-    public async Task<List<ProductDetailDto>> GetProductDetailsAsync() =>
+    public async Task<List<ProductDetails>> GetProductDetailsAsync() =>
         await _productRepository.GetProductDetailsAsync();
 
-    public async Task<List<ProductDetailDto>> GetProductDetailsByCategoryIdAsync(Guid categoryId) => 
+    public async Task<List<ProductDetails>> GetProductDetailsByCategoryIdAsync(Guid categoryId) => 
         await _productRepository.GetProductDetailsAsync(entity => entity.CategoryId == categoryId);
 
-    public async Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId) => 
+    public async Task<List<ProductDetails>> GetProductDetailsBySupplierIdAsync(Guid supplierId) => 
         await _productRepository.GetProductDetailsAsync(entity => entity.SupplierId == supplierId);
 
 }

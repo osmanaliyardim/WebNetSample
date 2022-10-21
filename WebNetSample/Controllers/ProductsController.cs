@@ -9,13 +9,17 @@ public class ProductsController : Controller
 {
     private readonly IProductService _productService;
     private readonly PaginationParameters _paginationParameters;
+    private readonly IConfiguration _configuration;
 
-    public ProductsController(IProductService productService, PaginationParameters paginationParameters)
+    public ProductsController(IProductService productService, PaginationParameters paginationParameters,
+           IConfiguration configuration)
     {
         _productService = productService;
         _paginationParameters = paginationParameters;
+        _configuration = configuration;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var productsWithDetails = await _productService.GetProductDetailsAsync();
@@ -23,9 +27,16 @@ public class ProductsController : Controller
         return View(productsWithDetails);
     }
 
-    public async Task<IActionResult> AllProducts()
+    [HttpGet]
+    public async Task<IActionResult> GetProducts()
     {
-        var productsWithDetails = await _productService.GetListAsync(_paginationParameters);
+        const string paginationSectionName = "PaginationLimitsAndOffsets";
+
+        var paginationJson = _configuration.GetSection(paginationSectionName);
+
+        var paginationParameters = paginationJson.Get<PaginationParameters>();
+
+        var productsWithDetails = await _productService.GetListAsync(paginationParameters);
 
         return View(productsWithDetails);
     }
