@@ -1,11 +1,14 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Business.Mappings;
 using WebNetSample.Business.DependencyResolvers.Autofac;
 using WebNetSample.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 // Register services directly with Autofac here. Don't
 // call builder.Populate(), that happens in AutofacServiceProviderFactory.

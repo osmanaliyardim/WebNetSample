@@ -8,14 +8,11 @@ namespace WebNetSample.WebNetMVC.Controllers;
 public class ProductsController : Controller
 {
     private readonly IProductService _productService;
-    private readonly PaginationParameters _paginationParameters;
     private readonly IConfiguration _configuration;
 
-    public ProductsController(IProductService productService, PaginationParameters paginationParameters,
-           IConfiguration configuration)
+    public ProductsController(IProductService productService, IConfiguration configuration)
     {
         _productService = productService;
-        _paginationParameters = paginationParameters;
         _configuration = configuration;
     }
 

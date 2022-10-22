@@ -12,11 +12,11 @@ public interface IProductService
 
     Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId);
 
-    Task<List<ProductDetails>> GetProductDetailsAsync();
+    Task<List<ProductDetailDto>> GetProductDetailsAsync();
 
-    Task<List<ProductDetails>> GetProductDetailsByCategoryIdAsync(Guid categoryId);
+    Task<List<ProductDetailDto>> GetProductDetailsByCategoryIdAsync(Guid categoryId);
 
-    Task<List<ProductDetails>> GetProductDetailsBySupplierIdAsync(Guid supplierId);
+    Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId);
 
     Task<Product> GetByIdAsync(Guid productId);
 
