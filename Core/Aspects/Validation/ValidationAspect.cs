@@ -14,7 +14,7 @@ public class ValidationAspect : MethodInterception
     {
         if (!typeof(IValidator).IsAssignableFrom(validatorType))
         {
-            throw new Exception("This is not a validation class.");
+            throw new System.Exception("This is not a validation class.");
         }
 
         _validatorType = validatorType;

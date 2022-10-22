@@ -6,7 +6,6 @@ using System.Reflection;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Business.Concrete;
 using WebNetSample.Core.Utilities.Interceptors;
-using WebNetSample.Core.Pagination;
 using AutoMapper;
 
 namespace WebNetSample.Business.DependencyResolvers.Autofac;
@@ -20,7 +19,7 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
 
         builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
-        
+
         builder.RegisterType<Mapper>().As<IMapper>().SingleInstance();
 
         var assembly = Assembly.GetExecutingAssembly();
