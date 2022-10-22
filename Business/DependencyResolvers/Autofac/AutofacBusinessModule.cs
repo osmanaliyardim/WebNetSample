@@ -1,8 +1,13 @@
 ﻿using Autofac;
-using WebNetSample.DataAccess.Abstract;
-using WebNetSample.DataAccess.Concrete.EntityFramework;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
+using Module = Autofac.Module;
+using System.Reflection;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Business.Concrete;
+using WebNetSample.Core.Utilities.Interceptors;
+using WebNetSample.Core.Pagination;
+using AutoMapper;
 
 namespace WebNetSample.Business.DependencyResolvers.Autofac;
 
@@ -11,12 +16,17 @@ public class AutofacBusinessModule : Module
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
-        builder.RegisterType<EfProductRepository>().As<IProductRepository>().SingleInstance();
 
         builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
-        builder.RegisterType<EfCategoryRepository>().As<ICategoryRepository>().SingleInstance();
 
         builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
-        builder.RegisterType<EfSupplierRepository>().As<ISupplierRepository>().SingleInstance();
+        
+        builder.RegisterType<Mapper>().As<IMapper>().SingleInstance();
+
+        var assembly = Assembly.GetExecutingAssembly();
+        builder.RegisterAssemblyTypes(assembly)
+            .AsImplementedInterfaces()
+            .EnableInterfaceInterceptors(new ProxyGenerationOptions { Selector = new AspectInterceptorSelector() })
+            .SingleInstance();
     }
 }

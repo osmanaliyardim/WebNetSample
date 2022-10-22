@@ -3,7 +3,7 @@ using WebNetSample.Core.Entities;
 
 namespace WebNetSample.Core.DataAccess;
 
-public interface IEntityRepository<T> where T : BaseEntity, new()
+public interface IEntityRepository<T> where T : BaseEntity
 {
 
     Task<T> GetAsync(Expression<Func<T, bool>> filter);

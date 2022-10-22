@@ -10,10 +10,10 @@
     <RepositoryUrl>https://github.com/osmanaliyardim/WebNetSample</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'WebNetSample' " />
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Categories\" />
-    <Folder Include="Views\Products\" />
     <Folder Include="Views\Suppliers\" />
   </ItemGroup>
   <ItemGroup>

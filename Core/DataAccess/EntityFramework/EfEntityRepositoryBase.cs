@@ -5,8 +5,8 @@ using WebNetSample.Core.Entities;
 namespace WebNetSample.Core.DataAccess.EntityFramework;
 
 public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
-     where TEntity : BaseEntity, new()
-     where TContext : DbContext, new()
+     where TEntity : BaseEntity
+     where TContext : DbContext
 {
     protected readonly TContext DbContext;
 
@@ -21,11 +21,15 @@ public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityReposit
     public async Task AddAsync(TEntity entity)
     {
         await _dbSet.AddAsync(entity);
+
+        await DbContext.SaveChangesAsync();
     }
 
     public void Delete(Expression<Func<TEntity, bool>> filter)
     {
         _dbSet.RemoveRange(_dbSet.Where(filter));
+
+        DbContext.SaveChanges();
     }
 
     public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
@@ -43,6 +47,9 @@ public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityReposit
     public void Update(TEntity entity)
     {
         _dbSet.Update(entity);
-    }
 
+        DbContext.Entry(entity).State = EntityState.Modified;
+
+        DbContext.SaveChanges();
+    }
 }
