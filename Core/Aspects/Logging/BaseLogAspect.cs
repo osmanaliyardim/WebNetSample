@@ -1,20 +1,25 @@
 ﻿using Castle.DynamicProxy;
 using WebNetSample.Core.CrossCuttingConcerns.Logging;
+using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net;
+using WebNetSample.Core.Utilities.Interceptors;
 
 namespace Core.Aspects.Logging;
 
-public class LogAspect : BaseLogAspect
+public abstract class BaseLogAspect : MethodInterception
 {
-    public LogAspect(Type loggerService) : base(loggerService)
+    protected LoggerServiceBase _loggerServiceBase;
+
+    public BaseLogAspect(Type loggerService)
     {
+        if (loggerService.BaseType != typeof(LoggerServiceBase))
+        {
+            throw new Exception("Wrong validation type!");
+        }
+
+        _loggerServiceBase = (LoggerServiceBase)Activator.CreateInstance(loggerService);
     }
 
-    protected override void OnBefore(IInvocation invocation)
-    {
-        _loggerServiceBase.Info(GetLogDetail(invocation));
-    }
-
-    protected override LogDetail GetLogDetail(IInvocation invocation)
+    protected virtual LogDetail GetLogDetail(IInvocation invocation)
     {
         var logParameters = new List<LogParameter>();
 

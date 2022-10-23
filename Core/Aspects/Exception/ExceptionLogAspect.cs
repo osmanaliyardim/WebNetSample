@@ -1,32 +1,24 @@
 ﻿using Castle.DynamicProxy;
+using Core.Aspects.Logging;
 using WebNetSample.Core.CrossCuttingConcerns.Logging;
-using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net;
-using WebNetSample.Core.Utilities.Interceptors;
+using Error = System.Exception;
 
 namespace WebNetSample.Core.Aspects.Exception;
 
-public class ExceptionLogAspect : MethodInterception
+public class ExceptionLogAspect : BaseLogAspect
 {
-    private LoggerServiceBase _loggerServiceBase;
-
-    public ExceptionLogAspect(Type loggerService)
+    public ExceptionLogAspect(Type loggerService) : base(loggerService)
     {
-        if (loggerService.BaseType != typeof(LoggerServiceBase))
-        {
-            throw new System.Exception("Wrong validation type!");
-        }
-
-        _loggerServiceBase = (LoggerServiceBase)Activator.CreateInstance(loggerService);
     }
 
-    protected override void OnException(IInvocation invocation, System.Exception e)
+    protected override void OnException(IInvocation invocation, Error e)
     {
-        LogDetailWithException logDetailWithException = GetLogDetail(invocation);
+        var logDetailWithException = GetLogDetail(invocation);
         logDetailWithException.ExceptionMessage = e.Message;
         _loggerServiceBase.Error(logDetailWithException);
     }
 
-    private LogDetailWithException GetLogDetail(IInvocation invocation)
+    protected override LogDetailWithException GetLogDetail(IInvocation invocation)
     {
         var logParameters = new List<LogParameter>();
 
@@ -36,7 +28,6 @@ public class ExceptionLogAspect : MethodInterception
             {
                 Name = invocation.GetConcreteMethod().GetParameters()[i].Name,
                 Value = invocation.Arguments[i],
-                //Type = invocation.Arguments[i].GetType().Name
                 Type = invocation.Arguments[i] != null ? invocation.Arguments[i].GetType().Name : ""
             });
         }

@@ -11,8 +11,13 @@ public class LoggerServiceBase
 
     public LoggerServiceBase(string name)
     {
-        XmlDocument xmlDocument = new XmlDocument();
-        xmlDocument.Load(File.OpenRead(@"C:\Users\Osman Ali\Desktop\WebNetSample\WebNetSample\wwwroot\XmlData\log4net.config.xml"));
+        var xmlDocument = new XmlDocument();
+        xmlDocument.Load(File.OpenRead(
+                Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot/XmlData",
+                    "log4net.config.xml"
+                )));
             
         ILoggerRepository loggerRepository = LogManager.CreateRepository(Assembly.GetEntryAssembly(),
                 typeof(log4net.Repository.Hierarchy.Hierarchy));

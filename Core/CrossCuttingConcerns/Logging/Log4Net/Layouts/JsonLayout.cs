@@ -8,7 +8,7 @@ public class JsonLayout : LayoutSkeleton
 {
     public override void ActivateOptions()
     {
-
+        // required implementation
     }
 
     public override void Format(TextWriter writer, LoggingEvent loggingEvent)

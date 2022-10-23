@@ -1,81 +1,62 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
-using System.Net;
-using WebNetSample.Core.CrossCuttingConcerns.Logging;
 using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net;
 
-namespace WebNetSample.Core.Extensions;
-
-public class ExceptionMiddleware
+namespace WebNetSample.Core.Extensions
 {
-    private RequestDelegate _next;
-    private LoggerServiceBase _loggerServiceBase;
-
-    public ExceptionMiddleware(RequestDelegate requestDelegate)
+    public class ExceptionMiddleware
     {
-        _next = requestDelegate;
-        _loggerServiceBase = new LoggerServiceBase("JsonFileLogger");
-    }
+        private readonly RequestDelegate _next;
+        private readonly LoggerServiceBase _loggerServiceBase;
 
-    public async Task InvokeAsync(HttpContext httpContext)
-    {
-        try
+        public ExceptionMiddleware(RequestDelegate requestDelegate)
         {
-            await _next(httpContext);
+            _next = requestDelegate;
+            _loggerServiceBase = new LoggerServiceBase("JsonFileLogger");
         }
-        catch (Exception e)
+
+        public async Task InvokeAsync(HttpContext httpContext)
         {
-            await HandleExceptionAsync(httpContext, e);
-        }
-    }
-
-    private Task HandleExceptionAsync(HttpContext httpContext, Exception e)
-    {
-        httpContext.Response.ContentType = "application/json";
-        httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-        string message = "Internal Server Error";
-
-        IEnumerable<ValidationFailure> errors;
-
-        // DENEME - BAŞLANGIÇ -------------------------------------------------------------------------------------
-        var logParameters = new List<LogParameter>();
-        logParameters.Add(new LogParameter
-        {
-            Name = "Osman Ali",
-            Value = "YARDIM",
-            Type = "EPAM Mentoring 2022 Fall"
-        });
-
-        var logDetail = new LogDetail
-        {
-            MethodName = "Dzimtry Yaniuk",
-            LogParameters = logParameters,
-            FolderLocation = @"C:\Users\Osman Ali\Desktop\WebNetSample\WebNetSample\wwwroot\XmlData"
-        };
-
-        _loggerServiceBase.Fatal(logDetail);
-        // DENEME - BİTİŞ -------------------------------------------------------------------------------------
-
-        if (e.GetType() == typeof(ValidationException))
-        {
-            message = e.Message;
-            errors = ((ValidationException)e).Errors;
-            httpContext.Response.StatusCode = 400;
-
-            return httpContext.Response.WriteAsync(new ValidationErrorDetails
+            try
             {
-                StatusCode = 400,
-                Message = message,
-                Errors = errors
+                await _next(httpContext);
+            }
+            catch (Exception e)
+            {
+                _loggerServiceBase.Fatal(e);
+                await HandleExceptionAsync(httpContext, e);
+            }
+        }
+
+        private Task HandleExceptionAsync(HttpContext httpContext, Exception e)
+        {
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+            var message = "Internal Server Error";
+
+            if (e.GetType() == typeof(ValidationException))
+            {
+                IEnumerable<ValidationFailure> errors;
+
+                message = e.Message;
+                errors = ((ValidationException)e).Errors;
+                httpContext.Response.StatusCode = 400;
+
+                return httpContext.Response.WriteAsync(new ValidationErrorDetails
+                {
+                    StatusCode = 400,
+                    Message = message,
+                    Errors = errors
+                }.ToString());
+            }
+
+            return httpContext.Response.WriteAsync(new ErrorDetails
+            {
+                StatusCode = httpContext.Response.StatusCode,
+                Message = message
             }.ToString());
         }
-
-        return httpContext.Response.WriteAsync(new ErrorDetails
-        {
-            StatusCode = httpContext.Response.StatusCode,
-            Message = message
-        }.ToString());
     }
 }

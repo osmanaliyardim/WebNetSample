@@ -2,7 +2,7 @@
 
 public class DatabaseLogger : LoggerServiceBase
 {
-    public DatabaseLogger() : base("DatabaseLogger")
+    public DatabaseLogger() : base(nameof(DatabaseLogger))
     {
     }
 }
