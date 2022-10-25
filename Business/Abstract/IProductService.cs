@@ -1,5 +1,4 @@
-﻿using Entity.Concrete;
-using WebNetSample.Core.Pagination;
+﻿using WebNetSample.Core.Pagination;
 using WebNetSample.Entity.Concrete;
 using WebNetSample.Entity.Dtos;
 

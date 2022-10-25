@@ -12,6 +12,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'WebNetSample' " />
   <ItemGroup>
+    <Content Remove="wwwroot\XmlData\log4net.config.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Categories\" />
     <Folder Include="Views\Suppliers\" />
@@ -21,6 +24,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <None Include="wwwroot\XmlData\log4net.config.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
