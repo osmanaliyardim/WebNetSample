@@ -18,9 +18,13 @@ public class ProductDetails : BaseEntity
     {
     }
 
-    public ProductDetails(Guid id, string categoryName, 
-        string supplierName, string name,
-        decimal price, string imageUrl) : this()
+    public ProductDetails(
+        Guid id, 
+        string categoryName, 
+        string supplierName, 
+        string name,
+        decimal price, 
+        string imageUrl) : this()
     {
         Id = id;
         CategoryName = categoryName;

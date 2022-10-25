@@ -7,6 +7,8 @@ namespace WebNetSample.Core.Aspects.Exception;
 
 public class ExceptionLogAspect : BaseLogAspect
 {
+    const string folderLocation = "/Core/CrossCuttingConcerns/Logging/Log4Net";
+
     public ExceptionLogAspect(Type loggerService) : base(loggerService)
     {
     }
@@ -36,7 +38,7 @@ public class ExceptionLogAspect : BaseLogAspect
         {
             MethodName = invocation.Method.Name,
             LogParameters = logParameters,
-            FolderLocation = "/Core/CrossCuttingConcerns/Logging/Log4Net"
+            FolderLocation = folderLocation
         };
 
         return logDetailWithException;

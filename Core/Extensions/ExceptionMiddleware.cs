@@ -42,11 +42,11 @@ namespace WebNetSample.Core.Extensions
 
                 message = e.Message;
                 errors = ((ValidationException)e).Errors;
-                httpContext.Response.StatusCode = 400;
+                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
                 return httpContext.Response.WriteAsync(new ValidationErrorDetails
                 {
-                    StatusCode = 400,
+                    StatusCode = StatusCodes.Status400BadRequest,
                     Message = message,
                     Errors = errors
                 }.ToString());
