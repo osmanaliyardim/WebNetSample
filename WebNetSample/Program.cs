@@ -2,8 +2,8 @@
 using Autofac.Extensions.DependencyInjection;
 using Business.Mappings;
 using WebNetSample.Business.DependencyResolvers.Autofac;
-using WebNetSample.Core.Extensions;
 using WebNetSample.DataAccess;
+using WebNetSample.WebNetMVC.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -19,7 +19,7 @@ public abstract class BaseLogAspect : MethodInterception
         _loggerServiceBase = (LoggerServiceBase)Activator.CreateInstance(loggerService);
     }
 
-    protected virtual LogDetail GetLogDetail(IInvocation invocation)
+    protected virtual T GetLogDetail<T>(IInvocation invocation) where T : LogDetail, new()
     {
         var logParameters = new List<LogParameter>();
 
@@ -33,7 +33,7 @@ public abstract class BaseLogAspect : MethodInterception
             });
         }
 
-        var logDetail = new LogDetail
+        var logDetail = new T
         {
             MethodName = invocation.Method.Name,
             LogParameters = logParameters,

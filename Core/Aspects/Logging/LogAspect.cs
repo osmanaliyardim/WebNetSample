@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using WebNetSample.Core.CrossCuttingConcerns.Logging;
 
 namespace Core.Aspects.Logging;
 
@@ -10,6 +11,6 @@ public class LogAspect : BaseLogAspect
 
     protected override void OnBefore(IInvocation invocation)
     {
-        _loggerServiceBase.Info(GetLogDetail(invocation));
+        _loggerServiceBase.Info(GetLogDetail<LogDetail>(invocation));
     }
 }
