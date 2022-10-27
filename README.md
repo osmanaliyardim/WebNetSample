@@ -1,7 +1,7 @@
 # WebNetSample
  Epam WEB .NET Mentoring Program
 
-Purpose: This project represents an application that is included in a training program <br>
+Purpose: This project represents an application that is included in a mentoring program <br>
 ... <br> 
 
 <h3> Technical description </h3>
@@ -9,7 +9,11 @@ Built With: <br>
 C# 10, <br>
 ASP.NET MVC, <br>
 Entity Framework Core, <br>
-NUnit. <br>
+Autofac IoC, <br>
+Newtonsoft Seriliazier, <br>
+FluentValidation, <br>
+xUnit, <br>
+Moq, <br>
 
 ... <br>
 
@@ -59,4 +63,4 @@ feature: message description  <br>
 For more examples, please, refer to the following options: <br>
 
 Contact
-osmanaliyardim | <a href="https://github.com/osmanaliyardim">GitHub</a> | <a href="https://linkedin.com/in/osmanaliyardim">LinkedIn</a> | osmanaliyardim@gmail.com
+<a href="https://github.com/osmanaliyardim">osmanaliyardim</a>  | <a href="https://linkedin.com/in/osmanaliyardim">LinkedIn</a> | osmanaliyardim@gmail.com
