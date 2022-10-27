@@ -14,6 +14,7 @@ Newtonsoft Seriliazier, <br>
 FluentValidation, <br>
 xUnit, <br>
 Moq, <br>
+FluentAssertion. <br>
 
 ... <br>
 
