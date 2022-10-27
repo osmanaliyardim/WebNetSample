@@ -17,7 +17,8 @@ public class ProductConfiguration : BaseEntityConfiguration<Product>, IEntityTyp
         builder.Property(prop => prop.SupplierId).HasColumnName("SupplierId");
         builder.Property(prop => prop.Name).HasColumnName("Name");
         builder.Property(prop => prop.Price).HasColumnName("Price");
-        builder.Property(prop => prop.ImageUrl).HasColumnName("ImageUrl");
+        builder.Property(prop => prop.ImagePath).HasColumnName("ImagePath");
+        builder.Property(prop => prop.CreationDate).HasColumnName("CreationDate");
 
         // A product can contain more than one categories and suppliers.
         builder.HasMany(prop => prop.Categories);

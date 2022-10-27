@@ -26,7 +26,8 @@ public class EfProductRepository : EfEntityRepositoryBase<Product, WebNetSampleD
                          Id = product.Id,
                          Name = product.Name,
                          Price = product.Price,
-                         ImageUrl = product.ImageUrl,
+                         ImageFile = product.ImageFile,
+                         ImagePath = product.ImagePath,
                          CategoryName = category.Name,
                          SupplierName = supplier.Name
                      };

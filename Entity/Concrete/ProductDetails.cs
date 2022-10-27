@@ -1,4 +1,5 @@
-﻿using WebNetSample.Core.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using WebNetSample.Core.Entities;
 
 namespace WebNetSample.Entity.Concrete;
 
@@ -8,7 +9,8 @@ public class ProductDetails : BaseEntity
 
     public decimal Price { get; set; }
 
-    public string ImageUrl { get; set; }
+    public IFormFile? ImageFile { get; set; }
+    public string ImagePath { get; set; }
 
     public string CategoryName { get; set; }
 
@@ -23,14 +25,16 @@ public class ProductDetails : BaseEntity
         string categoryName, 
         string supplierName, 
         string name,
-        decimal price, 
-        string imageUrl) : this()
+        decimal price,
+        IFormFile? imageFile,
+        string imagePath) : this()
     {
         Id = id;
         CategoryName = categoryName;
         SupplierName = supplierName;
         Name = name;
         Price = price;
-        ImageUrl = imageUrl;
+        ImageFile = imageFile;
+        ImagePath = imagePath;
     }
 }

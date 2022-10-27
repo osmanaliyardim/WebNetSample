@@ -15,6 +15,9 @@
     <Content Remove="wwwroot\XmlData\log4net.config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Categories\" />
     <Folder Include="Views\Suppliers\" />

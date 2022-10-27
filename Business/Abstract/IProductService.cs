@@ -21,8 +21,8 @@ public interface IProductService
 
     Task AddAsync(Product product);
 
-    void Delete(Product product);
+    Task DeleteAsync(Product product);
 
-    void Update(Product product);
+    Task UpdateAsync(Product product);
 
 }
