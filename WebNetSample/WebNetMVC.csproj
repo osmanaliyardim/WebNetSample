@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Views\Suppliers\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
