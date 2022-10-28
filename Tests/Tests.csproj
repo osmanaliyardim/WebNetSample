@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\Entity\Entity.csproj" />
     <ProjectReference Include="..\WebNetSample\WebNetMVC.csproj" />
   </ItemGroup>
 

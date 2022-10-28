@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Entity.Concrete;
-using WebNetSample.Tests.Configurations;
 using WebNetSample.WebNetMVC.Controllers;
 
 namespace WebNetSample.Tests;

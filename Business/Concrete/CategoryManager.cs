@@ -18,4 +18,10 @@ public class CategoryManager : ICategoryService
 
     public async Task<List<Category>> GetListAsync() => 
         await _categoryRepository.GetListAsync();
+
+    public async Task AddAsync(Category category) =>
+        await _categoryRepository.AddAsync(category);
+
+    public async Task UpdateAsync(Category category) =>
+        await _categoryRepository.UpdateAsync(category);
 }

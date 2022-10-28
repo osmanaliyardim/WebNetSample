@@ -1,0 +1,50 @@
+﻿@using WebNetSample.Entity.Concrete;
+@model Category
+
+<form asp-action="Add" asp-controller="Category" method="post">
+    
+    <div asp-validation-summary="ModelOnly">
+        <span>Please correct the following errors</span>
+    </div>
+
+    <table cellpadding="5" cellspacing="5">
+        <tr>
+            <th colspan="2" align="center">Category Details</th>
+        </tr>
+        <tr>
+            <td>Id: </td>
+            <td>
+                <input type="text" id="Id" name="Id" value="@Guid.NewGuid()" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>Name: </td>
+            <td>
+                <input asp-for="Name" /> <span class="text-danger" asp-validation-for="Name"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Creation Date: </td>
+            <td>
+                <input type="text" id="CreationDate" name="CreationDate" value="@DateTime.Now" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="ImageFile">Upload An Image</label>
+            </td>
+            <td>
+                <input asp-for="ImageFile" type="file">
+                <span class="text-danger" asp-validation-for="ImageFile"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
+
+@section Scripts {   
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}

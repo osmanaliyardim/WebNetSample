@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using WebNetSample.WebNetMVC.Controllers;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Entity.Dtos;
-using WebNetSample.Tests.Configurations;
+using WebNetSample.WebNetMVC.Controllers;
 
 namespace WebNetSample.Tests;
 

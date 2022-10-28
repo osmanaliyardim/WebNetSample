@@ -12,8 +12,8 @@ public interface IEntityRepository<T> where T : BaseEntity
 
     Task AddAsync(T entity);
 
-    void Update(T entity);
+    Task UpdateAsync(T entity);
 
-    void Delete(Expression<Func<T, bool>> filter);
+    Task DeleteAsync(Expression<Func<T, bool>> filter);
 
 }
