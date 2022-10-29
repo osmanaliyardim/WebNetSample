@@ -29,7 +29,7 @@ public class SuppliersControllerTest
 
         var actual = model;
 
-        for (int i = 0; i < actual.Count; i++)
+        for (int i = 0; i < expected.Count; i++)
         {
             Assert.Equal(expected[i], actual[i]);
         }

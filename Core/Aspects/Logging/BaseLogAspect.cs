@@ -3,7 +3,7 @@ using WebNetSample.Core.CrossCuttingConcerns.Logging;
 using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net;
 using WebNetSample.Core.Utilities.Interceptors;
 
-namespace Core.Aspects.Logging;
+namespace WebNetSample.Core.Aspects.Logging;
 
 public abstract class BaseLogAspect : MethodInterception
 {
@@ -13,7 +13,7 @@ public abstract class BaseLogAspect : MethodInterception
     {
         if (loggerService.BaseType != typeof(LoggerServiceBase))
         {
-            throw new Exception("Wrong validation type!");
+            throw new System.Exception("Wrong validation type!");
         }
 
         _loggerServiceBase = (LoggerServiceBase)Activator.CreateInstance(loggerService);

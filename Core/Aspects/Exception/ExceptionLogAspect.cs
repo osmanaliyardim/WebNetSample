@@ -1,5 +1,5 @@
 ﻿using Castle.DynamicProxy;
-using Core.Aspects.Logging;
+using WebNetSample.Core.Aspects.Logging;
 using WebNetSample.Core.CrossCuttingConcerns.Logging;
 using Error = System.Exception;
 

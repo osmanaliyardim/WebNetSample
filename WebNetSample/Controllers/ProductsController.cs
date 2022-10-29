@@ -63,7 +63,7 @@ public class ProductsController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(Product updatedProduct)
     {
-        _productService.Update(updatedProduct);
+        await _productService.UpdateAsync(updatedProduct);
 
         return RedirectToAction("Index");
     }
