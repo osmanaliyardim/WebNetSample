@@ -36,7 +36,7 @@ public class CategoriesController : Controller
     }
 
     [HttpGet]
-    [Route("/Update/{id}")]
+    [Route("/Categories/Update/{id}")]
     public async Task<IActionResult> Edit(Guid id)
     {
         var categoryToEdit = await _categoryService.GetByIdAsync(id);
