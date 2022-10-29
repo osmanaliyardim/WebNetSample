@@ -2,8 +2,9 @@
 using Autofac.Extensions.DependencyInjection;
 using Business.Mappings;
 using WebNetSample.Business.DependencyResolvers.Autofac;
+using WebNetSample.Core.CrossCuttingConcerns.Caching.Microsoft;
 using WebNetSample.DataAccess;
-using WebNetSample.WebNetMVC.Exceptions;
+using WebNetSample.WebNetMVC.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,9 +36,17 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseResponseCaching();
+
+app.UseWhen(context => context.Request.Path.Value.Contains("Images/"), appBuilder =>
+{
+    appBuilder.UseMiddleware<ImageCachingMiddleware>();
+});
 
 app.MapControllerRoute(
     name: "default",
