@@ -1,12 +1,10 @@
-﻿using WebNetSample.Entity.Concrete;
+﻿using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.Business.Abstract;
 
 public interface ISupplierService
 {
+    Task<List<SupplierDetailDto>> GetListAsync();
 
-    Task<List<Supplier>> GetListAsync();
-
-    Task<Supplier> GetByIdAsync(Guid supplierId);
-
+    Task<SupplierDetailDto> GetByIdAsync(Guid supplierId);
 }

@@ -1,16 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
-using WebNetSample.Entity.Concrete;
+using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.WebNetMVC.Controllers;
 
 public class CategoriesController : Controller
 {
     private readonly ICategoryService _categoryService;
+    private readonly IMapper _mapper;
 
-    public CategoriesController(ICategoryService categoryService)
+    public CategoriesController(ICategoryService categoryService,
+        IMapper mapper)
     {
         _categoryService = categoryService;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -28,7 +32,7 @@ public class CategoriesController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(Category category)
+    public async Task<IActionResult> Add(CategoryDetailDto category)
     {
         await _categoryService.AddAsync(category);
 
@@ -44,25 +48,8 @@ public class CategoriesController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(Category updatedCategory)
+    public async Task<IActionResult> Update(CategoryDetailDto updatedCategory)
     {
-        string FileName = Path.GetFileNameWithoutExtension(updatedCategory.ImageFile?.FileName);
- 
-        string FileExtension = Path.GetExtension(updatedCategory.ImageFile?.FileName);
-  
-        FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName?.Trim() + FileExtension;
-
-        string UploadPath = $"{Directory.GetCurrentDirectory()}\\wwwroot\\Images\\";
-
-        updatedCategory.ImagePath = UploadPath + FileName;
-
-        using (Stream fileStream = new FileStream(updatedCategory.ImagePath, FileMode.Create, FileAccess.Write))
-        {
-            updatedCategory.ImageFile?.CopyTo(fileStream);
-        }
-
-        updatedCategory.ImagePath = "\\Images\\" + FileName;
-
         await _categoryService.UpdateAsync(updatedCategory);
 
         return RedirectToAction("Index");

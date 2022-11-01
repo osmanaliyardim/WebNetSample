@@ -1,16 +1,31 @@
-﻿using WebNetSample.Core.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using WebNetSample.Core.Entities;
 
 namespace WebNetSample.Entity.Dtos;
 
-public class ProductDetailDto : BaseDto
+public record ProductDetailDto : BaseDto
 {
-    public string Name { get; set; }
+    public ProductDetailDto(
+    string name,
+    decimal price,
+    string imageUrl,
+    string categoryname,
+    string supplierName)
+    {
+        Name = name;
+        Price = price;
+        ImageUrl = imageUrl;
+        CategoryName = categoryname;
+        SupplierName = supplierName;
+    }
 
-    public decimal Price { get; set; }
+    public string Name { get; }
 
-    public string ImageUrl { get; set; }
+    public decimal Price { get; }
 
-    public string CategoryName { get; set; }
+    public string ImageUrl { get; }
 
-    public string SupplierName { get; set; }
+    public string CategoryName { get; }
+
+    public string SupplierName { get; }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Core.Pagination;
-using WebNetSample.Entity.Concrete;
+using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.WebNetMVC.Controllers;
 
@@ -45,7 +45,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(Product product)
+    public async Task<IActionResult> Add(ProductDetailDto product)
     {
         await _productService.AddAsync(product);
 
@@ -61,7 +61,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(Product updatedProduct)
+    public async Task<IActionResult> Update(ProductDetailDto updatedProduct)
     {
         await _productService.UpdateAsync(updatedProduct);
 
