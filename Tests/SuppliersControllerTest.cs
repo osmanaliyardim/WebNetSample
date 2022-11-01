@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
-using WebNetSample.Entity.Concrete;
+using WebNetSample.Entity.Dtos;
 using WebNetSample.WebNetMVC.Controllers;
 
 namespace WebNetSample.Tests;
@@ -8,13 +8,13 @@ namespace WebNetSample.Tests;
 public class SuppliersControllerTest
 {
     [Theory, AutoMoqData]
-    public void Index_Should_Return_As_Expected(List<Supplier> expected)
+    public void Index_Should_Return_As_Expected(List<SupplierDetailDto> expected)
     {
         // Arrange
         var productServiceMock = new Mock<ISupplierService>();
 
         var sut = new SuppliersController(productServiceMock.Object);
-        productServiceMock.Setup(c => c.GetListAsync().Result).Returns(expected);
+        productServiceMock.Setup(c => c.GetAllAsync().Result).Returns(expected);
 
         // Act
         var actionResult = sut.Index();
@@ -23,7 +23,7 @@ public class SuppliersControllerTest
         var okViewResult = actionResult.Result as ViewResult;
         Assert.NotNull(okViewResult);
 
-        var model = okViewResult.Model as List<Supplier>;
+        var model = okViewResult.Model as List<SupplierDetailDto>;
         Assert.NotNull(model);
 
         var actual = model;

@@ -4,7 +4,7 @@ namespace WebNetSample.Business.Abstract;
 
 public interface ICategoryService
 {
-    Task<List<CategoryDetailDto>> GetListAsync();
+    Task<List<CategoryDetailDto>> GetAllAsync();
 
     Task<CategoryDetailDto> GetByIdAsync(Guid categoryId);
 

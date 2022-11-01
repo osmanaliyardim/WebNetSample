@@ -27,9 +27,9 @@ public class SupplierManager : ISupplierService
         return mappedSupplier;
     } 
         
-    public async Task<List<SupplierDetailDto>> GetListAsync()
+    public async Task<List<SupplierDetailDto>> GetAllAsync()
     {
-        var supplierListInfo = await _supplierRepository.GetListAsync();
+        var supplierListInfo = await _supplierRepository.GetAllAsync();
 
         var mappedSupplierList = _mapper.Map<List<SupplierDetailDto>>(supplierListInfo);
 

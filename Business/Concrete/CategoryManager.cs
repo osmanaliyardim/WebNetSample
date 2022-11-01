@@ -11,8 +11,7 @@ public class CategoryManager : ICategoryService
     private readonly ICategoryRepository _categoryRepository;
     private readonly IMapper _mapper;
 
-    public CategoryManager(ICategoryRepository categoryRepository,
-        IMapper mapper)
+    public CategoryManager(ICategoryRepository categoryRepository, IMapper mapper)
     {
         _categoryRepository = categoryRepository;
         _mapper = mapper;
@@ -27,9 +26,9 @@ public class CategoryManager : ICategoryService
         return mappedCategory;
     } 
 
-    public async Task<List<CategoryDetailDto>> GetListAsync()
+    public async Task<List<CategoryDetailDto>> GetAllAsync()
     {
-        var categoryListInfo = await _categoryRepository.GetListAsync();
+        var categoryListInfo = await _categoryRepository.GetAllAsync();
 
         var mappedCategoryList = _mapper.Map<List<CategoryDetailDto>>(categoryListInfo);
 
@@ -52,7 +51,9 @@ public class CategoryManager : ICategoryService
 
         var FileExtension = Path.GetExtension(categoryInfo.ImagePath);
 
-        FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName?.Trim() + FileExtension;
+        const string delimiter = "-";
+
+        FileName = DateTime.Now.ToString("yyyyMMdd") + delimiter + FileName?.Trim() + FileExtension;
 
         var UploadPath = $"{Directory.GetCurrentDirectory()}\\wwwroot\\Images\\";
 

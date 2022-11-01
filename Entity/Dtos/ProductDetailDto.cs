@@ -6,11 +6,11 @@ namespace WebNetSample.Entity.Dtos;
 public record ProductDetailDto : BaseDto
 {
     public ProductDetailDto(
-    string name,
-    decimal price,
-    string imageUrl,
-    string categoryname,
-    string supplierName)
+        string name,
+        decimal price,
+        string imageUrl,
+        string categoryname,
+        string supplierName)
     {
         Name = name;
         Price = price;

@@ -33,7 +33,7 @@ public class ProductsController : Controller
 
         var paginationParameters = paginationJson.Get<PaginationParameters>();
 
-        var productsWithDetails = await _productService.GetListAsync(paginationParameters);
+        var productsWithDetails = await _productService.GetAllAsync(paginationParameters);
 
         return View(productsWithDetails);
     }

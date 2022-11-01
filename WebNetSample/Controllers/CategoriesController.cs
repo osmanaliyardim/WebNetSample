@@ -8,19 +8,16 @@ namespace WebNetSample.WebNetMVC.Controllers;
 public class CategoriesController : Controller
 {
     private readonly ICategoryService _categoryService;
-    private readonly IMapper _mapper;
 
-    public CategoriesController(ICategoryService categoryService,
-        IMapper mapper)
+    public CategoriesController(ICategoryService categoryService)
     {
         _categoryService = categoryService;
-        _mapper = mapper;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var categories = await _categoryService.GetListAsync();
+        var categories = await _categoryService.GetAllAsync();
 
         return View(categories);
     }

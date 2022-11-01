@@ -6,7 +6,7 @@ namespace WebNetSample.Business.Abstract;
 public interface IProductService
 {
 
-    Task<List<ProductDetailDto>> GetListAsync(PaginationParameters paginationParameters);
+    Task<List<ProductDetailDto>> GetAllAsync(PaginationParameters paginationParameters);
 
     Task<List<ProductDetailDto>> GetProductDetailsAsync();
 

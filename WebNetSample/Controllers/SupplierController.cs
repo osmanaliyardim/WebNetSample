@@ -15,7 +15,7 @@ public class SuppliersController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var suppliers = await _supplierService.GetListAsync();    
+        var suppliers = await _supplierService.GetAllAsync();    
 
         return View(suppliers);
     }

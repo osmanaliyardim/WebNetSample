@@ -30,19 +30,6 @@
                 @Html.TextBoxFor(m => m.CreationDate, new { @readonly = "readonly", @Value = @Model.CreationDate })
             </td>
         </tr>
-
-        <!-- deneme -->
-        <tr>
-            <td>
-                <label asp-for="ImageFile"></label>
-            </td>
-            <td>
-                <input asp-for="ImageFile" type="file" name="ImageFile">
-                <span class="text-danger" asp-validation-for="ImageFile"></span>
-            </td>
-        </tr>
-        <!-- deneme -->
-
         <tr>
             <td><input type="submit" value="Submit" /></td>
         </tr>

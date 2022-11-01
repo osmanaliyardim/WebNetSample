@@ -48,9 +48,9 @@ public class ProductManager : IProductService
     }
 
     [LogAspect(typeof(FileLogger))]
-    public async Task<List<ProductDetailDto>> GetListAsync(PaginationParameters paginationParameters)
+    public async Task<List<ProductDetailDto>> GetAllAsync(PaginationParameters paginationParameters)
     {
-        var productsInfo = await _productRepository.GetListAsync();
+        var productsInfo = await _productRepository.GetAllAsync();
 
         var paginationProductsInfo = productsInfo
                 .Skip(paginationParameters.RecordsToSkip)
@@ -62,7 +62,7 @@ public class ProductManager : IProductService
     }
 
     public async Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId) =>
-        await _productRepository.GetListAsync(entity => entity.CategoryId == categoryId);
+        await _productRepository.GetAllAsync(entity => entity.CategoryId == categoryId);
 
     [LogAspect(typeof(FileLogger))]
     public async Task<List<ProductDetailDto>> GetProductDetailsAsync()

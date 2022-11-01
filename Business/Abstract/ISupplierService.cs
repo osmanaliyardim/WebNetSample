@@ -4,7 +4,7 @@ namespace WebNetSample.Business.Abstract;
 
 public interface ISupplierService
 {
-    Task<List<SupplierDetailDto>> GetListAsync();
+    Task<List<SupplierDetailDto>> GetAllAsync();
 
     Task<SupplierDetailDto> GetByIdAsync(Guid supplierId);
 }
