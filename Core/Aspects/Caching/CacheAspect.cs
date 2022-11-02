@@ -10,6 +10,7 @@ public class CacheAspect : MethodInterception
 {
     private readonly ICacheService _cacheService;
     public readonly int duration;
+
     public string Location { get; set; } = "Client";
 
     public CacheAspect(int duration = 60)
