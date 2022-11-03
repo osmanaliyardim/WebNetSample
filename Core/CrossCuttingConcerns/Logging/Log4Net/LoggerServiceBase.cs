@@ -23,15 +23,20 @@ public class LoggerServiceBase
         _log = LogManager.GetLogger(loggerRepository.Name, name);
     }
 
-    public bool IsInfoEnabled => _log.IsInfoEnabled;
+    public bool IsInfoEnabled => 
+        _log.IsInfoEnabled;
 
-    public bool IsDebugEnabled => _log.IsDebugEnabled;
+    public bool IsDebugEnabled =>
+        _log.IsDebugEnabled;
 
-    public bool IsWarnEnabled => _log.IsWarnEnabled;
+    public bool IsWarnEnabled => 
+        _log.IsWarnEnabled;
 
-    public bool IsFatalEnabled => _log.IsFatalEnabled;
+    public bool IsFatalEnabled => 
+        _log.IsFatalEnabled;
 
-    public bool IsErrorEnabled => _log.IsErrorEnabled;
+    public bool IsErrorEnabled => 
+        _log.IsErrorEnabled;
 
     public void Info(object logMessage)
     {
