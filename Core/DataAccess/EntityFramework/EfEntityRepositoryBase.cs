@@ -55,9 +55,8 @@ public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityReposit
         await DbContext.SaveChangesAsync();
     }
 
-    // ToDo: Exract it as an extension class
     public void DetachLocal<T>(DbContext context, T t, Guid entryId)
-    where T : BaseEntity
+        where T : BaseEntity
     {
         var local = context.Set<T>()
             .Local
