@@ -12,13 +12,13 @@ public class CategoriesControllerTest
     public void Index_Should_Return_As_Expected(List<Category> expected)
     {
         // Arrange
-        var productServiceMock = new Mock<ICategoryService>();
+        var categoriesServiceMock = new Mock<ICategoryService>();
 
-        var sut = new CategoriesController(productServiceMock.Object);
-        productServiceMock.Setup(c => c.GetListAsync().Result).Returns(expected);
+        var categoriesController = new CategoriesController(categoriesServiceMock.Object);
+        categoriesServiceMock.Setup(categoriesService => categoriesService.GetListAsync().Result).Returns(expected);
 
         // Act
-        var actionResult = sut.Index();
+        var actionResult = categoriesController.Index();
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
@@ -31,7 +31,8 @@ public class CategoriesControllerTest
 
         for (int i = 0; i < expected.Count; i++)
         {
-            Assert.Equal(expected[i], actual[i]);
+            Assert.Equal(expected[i].Name, actual[i].Name);
+            Assert.Equal(expected[i].CreationDate, actual[i].CreationDate);
         }
     }
 }

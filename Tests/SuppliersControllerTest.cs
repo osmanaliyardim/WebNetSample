@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Entity.Concrete;
+using WebNetSample.Entity.Dtos;
 using WebNetSample.Tests.Configurations;
 using WebNetSample.WebNetMVC.Controllers;
 
@@ -12,13 +13,13 @@ public class SuppliersControllerTest
     public void Index_Should_Return_As_Expected(List<Supplier> expected)
     {
         // Arrange
-        var productServiceMock = new Mock<ISupplierService>();
+        var supplierServiceMock = new Mock<ISupplierService>();
 
-        var sut = new SuppliersController(productServiceMock.Object);
-        productServiceMock.Setup(c => c.GetListAsync().Result).Returns(expected);
+        var suppliersController = new SuppliersController(supplierServiceMock.Object);
+        supplierServiceMock.Setup(supplierService => supplierService.GetListAsync().Result).Returns(expected);
 
         // Act
-        var actionResult = sut.Index();
+        var actionResult = suppliersController.Index();
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
@@ -31,7 +32,8 @@ public class SuppliersControllerTest
 
         for (int i = 0; i < expected.Count; i++)
         {
-            Assert.Equal(expected[i], actual[i]);
+            Assert.Equal(expected[i].Name, actual[i].Name);
+            Assert.Equal(expected[i].CreationDate, actual[i].CreationDate);
         }
     }
 }

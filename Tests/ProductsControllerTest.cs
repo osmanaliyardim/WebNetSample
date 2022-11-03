@@ -6,6 +6,7 @@ using WebNetSample.Entity.Dtos;
 using WebNetSample.Tests.Configurations;
 using WebNetSample.Entity.Concrete;
 using WebNetSample.Core.Extensions;
+using System;
 
 namespace WebNetSample.Tests;
 
@@ -43,89 +44,55 @@ public class ProductsControllerTest
         }
     }
 
-    [Theory, AutoMoqData]
-    public void Index_ShouldThrowExceptionAndReturnErrorDetails_WhenErrorOccurs(AggregateException expected) //ErrorDetails
+    [Fact]
+    public async Task Index_ShouldThrowExceptionAndReturnErrorDetails_WhenErrorOccurs()
     {
         // Arrange
         var configurationMock = new Mock<IConfiguration>();
         var productServiceMock = new Mock<IProductService>();
 
-        var sut = new ProductsController(productServiceMock.Object, configurationMock.Object);
-        productServiceMock.Setup(productService => productService.GetProductDetailsAsync().Exception).Returns(expected);
+        var productsController = new ProductsController(productServiceMock.Object, configurationMock.Object);
 
-        // Act
-        var actionResult = sut.Index();
+        var expected = new Exception();
 
-        // Assert
-        var errorViewResult = actionResult;
-        Assert.Throws<ErrorDetails>(errorViewResult.Result);
-        Assert.IsType<ErrorDetails>(errorViewResult.Exception);
+        productServiceMock.Setup(productService => productService.GetProductDetailsAsync()).ThrowsAsync(expected);
 
-        var model = errorViewResult;
-        Assert.Throws<ErrorDetails>(model.Result);
-        Assert.IsType<ErrorDetails>(model.Exception);
-
-        var actual = model;
-
-        Assert.Equal(actual.Exception, expected);
+        // Act & Assert
+        await Assert.ThrowsAsync<Exception>(() => productsController.Index());
     }
 
     [Theory, AutoMoqData]
-    public void Add_ShouldExecuteSuccessullyAndAddProductToDB(Product expected)
+    public void Add_ShouldExecuteSuccessullyAndRedirectToIndex(Product expected)
     {
         // Arrange
         var configurationMock = new Mock<IConfiguration>();
         var productServiceMock = new Mock<IProductService>();
 
-        var sut = new ProductsController(productServiceMock.Object, configurationMock.Object);
-        var result = productServiceMock.Setup(productService => productService.AddAsync(expected));
+        var productsController = new ProductsController(productServiceMock.Object, configurationMock.Object);
 
         // Act
-        var actionResult = sut.Add(expected);
+        var actionResult = productsController.Add(expected);
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
         Assert.NotNull(okViewResult);
-
-        var model = okViewResult.Model as Product;
-        Assert.NotNull(model);
-
-        var actual = model;
-
-        Assert.Equal(expected.Name, actual.Name);
-        Assert.Equal(expected.SupplierId, actual.SupplierId);
-        Assert.Equal(expected.CategoryId, actual.CategoryId);
-        Assert.Equal(expected.ImageUrl, actual.ImageUrl);
-        Assert.Equal(expected.Price, actual.Price);
     }
 
     [Theory, AutoMoqData]
-    public void Edit_ShouldExecuteSuccessullyAndReturnProduct(Product expected)
+    public void Edit_ShouldExecuteSuccessullyAndReturnProduct(Guid expected)
     {
         // Arrange
         var configurationMock = new Mock<IConfiguration>();
         var productServiceMock = new Mock<IProductService>();
 
-        var sut = new ProductsController(productServiceMock.Object, configurationMock.Object);
-        productServiceMock.Setup(productService => productService.GetByIdAsync(expected.Id).Result).Returns(expected);
+        var productsController = new ProductsController(productServiceMock.Object, configurationMock.Object);
 
         // Act
-        var actionResult = sut.Edit(expected.Id);
+        var actionResult = productsController.Edit(expected);
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
         Assert.NotNull(okViewResult);
-
-        var model = okViewResult.Model as Product;
-        Assert.NotNull(model);
-
-        var actual = model;
-
-        Assert.Equal(expected.Name, actual.Name);
-        Assert.Equal(expected.SupplierId, actual.SupplierId);
-        Assert.Equal(expected.CategoryId, actual.CategoryId);
-        Assert.Equal(expected.ImageUrl, actual.ImageUrl);
-        Assert.Equal(expected.Price, actual.Price);
     }
 
     [Theory, AutoMoqData]
@@ -135,11 +102,10 @@ public class ProductsControllerTest
         var configurationMock = new Mock<IConfiguration>();
         var productServiceMock = new Mock<IProductService>();
 
-        var sut = new ProductsController(productServiceMock.Object, configurationMock.Object);
-        productServiceMock.Setup(productService => productService.UpdateAsync(expected));
+        var productsController = new ProductsController(productServiceMock.Object, configurationMock.Object);
 
         // Act
-        var actionResult = sut.Update(expected);
+        var actionResult = productsController.Update(expected);
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
@@ -151,8 +117,6 @@ public class ProductsControllerTest
         var actual = model;
 
         Assert.Equal(expected.Name, actual.Name);
-        Assert.Equal(expected.SupplierId, actual.SupplierId);
-        Assert.Equal(expected.CategoryId, actual.CategoryId);
         Assert.Equal(expected.ImageUrl, actual.ImageUrl);
         Assert.Equal(expected.Price, actual.Price);
     }
