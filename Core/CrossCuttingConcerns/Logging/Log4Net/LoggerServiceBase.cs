@@ -23,28 +23,18 @@ public class LoggerServiceBase
         _log = LogManager.GetLogger(loggerRepository.Name, name);
     }
 
-    public void Info(object logMessage)
-    {
+    public void Info(object logMessage) =>
         _log.Info(logMessage); 
-    }
 
-    public void Debug(object logMessage)
-    {
+    public void Debug(object logMessage) =>
         _log.Debug(logMessage);
-    }
 
-    public void Warn(object logMessage)
-    {
+    public void Warn(object logMessage) =>
         _log.Warn(logMessage);
-    }
 
-    public void Fatal(object logMessage)
-    {
+    public void Fatal(object logMessage) =>
         _log.Fatal(logMessage);   
-    }
 
-    public void Error(object logMessage)
-    {
+    public void Error(object logMessage) =>
         _log.Error(logMessage);
-    }
 }
