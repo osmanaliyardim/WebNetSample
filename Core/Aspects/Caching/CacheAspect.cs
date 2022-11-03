@@ -8,11 +8,10 @@ namespace WebNetSample.Core.Aspects.Caching;
 
 public class CacheAspect : MethodInterception
 {
+    private const int defaultDuration = 60;
     private readonly ICacheService _cacheService;
     public readonly int _duration;
-    private const int defaultDuration = 60;
     public string Location { get; set; } = "Client";
-
 
     public CacheAspect()
     {

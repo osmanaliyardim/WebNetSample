@@ -45,9 +45,16 @@ public class MemoryCacheManager : ICacheService
             cacheCollectionValues.Add(cacheItemValue);
         }
 
-        var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var regex = new Regex(
+            pattern,
+            RegexOptions.Singleline |
+            RegexOptions.Compiled |
+            RegexOptions.IgnoreCase);
         
-        var keysToRemove = cacheCollectionValues.Where(cacheValues => regex.IsMatch(cacheValues.Key.ToString())).Select(cacheValues => cacheValues.Key).ToString();
+        var keysToRemove = cacheCollectionValues.Where(cacheValues =>
+            regex.IsMatch(cacheValues.Key.ToString()))
+                .Select(cacheValues => cacheValues.Key)
+                    .ToString();
 
         foreach (var key in keysToRemove)
         {
