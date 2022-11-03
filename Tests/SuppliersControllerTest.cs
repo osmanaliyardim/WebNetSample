@@ -10,7 +10,7 @@ namespace WebNetSample.Tests;
 public class SuppliersControllerTest
 {
     [Theory, AutoMoqData]
-    public void Index_Should_Return_As_Expected(List<Supplier> expected)
+    public void Index_ShouldReturnAsExpected(List<Supplier> expected)
     {
         // Arrange
         var supplierServiceMock = new Mock<ISupplierService>();
@@ -29,6 +29,8 @@ public class SuppliersControllerTest
         Assert.NotNull(model);
 
         var actual = model;
+
+        Assert.Equal(expected.Count, actual.Count);
 
         for (int i = 0; i < expected.Count; i++)
         {

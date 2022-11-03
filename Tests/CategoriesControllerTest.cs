@@ -9,7 +9,7 @@ namespace WebNetSample.Tests;
 public class CategoriesControllerTest
 {
     [Theory, AutoMoqData]
-    public void Index_Should_Return_As_Expected(List<Category> expected)
+    public void Index_ShouldReturnAsExpected(List<Category> expected)
     {
         // Arrange
         var categoriesServiceMock = new Mock<ICategoryService>();
@@ -28,6 +28,8 @@ public class CategoriesControllerTest
         Assert.NotNull(model);
 
         var actual = model;
+
+        Assert.Equal(expected.Count, actual.Count);
 
         for (int i = 0; i < expected.Count; i++)
         {

@@ -5,8 +5,6 @@ using WebNetSample.Business.Abstract;
 using WebNetSample.Entity.Dtos;
 using WebNetSample.Tests.Configurations;
 using WebNetSample.Entity.Concrete;
-using WebNetSample.Core.Extensions;
-using System;
 
 namespace WebNetSample.Tests;
 
@@ -19,11 +17,11 @@ public class ProductsControllerTest
         var configurationMock = new Mock<IConfiguration>();
         var productServiceMock = new Mock<IProductService>();
 
-        var sut = new ProductsController(productServiceMock.Object, configurationMock.Object);
+        var productsController = new ProductsController(productServiceMock.Object, configurationMock.Object);
         productServiceMock.Setup(productService => productService.GetProductDetailsAsync().Result).Returns(expected);
 
         // Act
-        var actionResult = sut.Index();
+        var actionResult = productsController.Index();
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
@@ -33,6 +31,8 @@ public class ProductsControllerTest
         Assert.NotNull(model);
 
         var actual = model;
+
+        Assert.Equal(expected.Count, actual.Count);
 
         for (int i = 0; i < expected.Count; i++)
         {
@@ -61,8 +61,8 @@ public class ProductsControllerTest
         await Assert.ThrowsAsync<Exception>(() => productsController.Index());
     }
 
-    [Theory, AutoMoqData]
-    public void Add_ShouldExecuteSuccessullyAndRedirectToIndex(Product expected)
+    [Fact, AutoMoqData]
+    public void Add_ShouldExecuteSuccessullyAndRedirectToIndex()
     {
         // Arrange
         var configurationMock = new Mock<IConfiguration>();
@@ -70,12 +70,23 @@ public class ProductsControllerTest
 
         var productsController = new ProductsController(productServiceMock.Object, configurationMock.Object);
 
+        Product expected = new Product()
+        {
+            Id = Guid.NewGuid(),
+            Name = "Blabla",
+            ImageUrl = "Aaa.jpg",
+            Price = 10.04m,
+            CreationDate = DateTime.Now,
+            CategoryId = Guid.NewGuid(),
+            SupplierId = Guid.NewGuid()
+        };
+
         // Act
         var actionResult = productsController.Add(expected);
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
-        Assert.NotNull(okViewResult);
+        Assert.Null(okViewResult);
     }
 
     [Theory, AutoMoqData]
@@ -96,13 +107,25 @@ public class ProductsControllerTest
     }
 
     [Theory, AutoMoqData]
-    public void Update_ShouldExecuteSuccessullyAndRedirectToAction(Product expected)
+    public void Update_ShouldExecuteSuccessullyAndRedirectToIndex(Product expected)
     {
         // Arrange
         var configurationMock = new Mock<IConfiguration>();
         var productServiceMock = new Mock<IProductService>();
 
+        Product product = new Product()
+        {
+            Id = Guid.NewGuid(),
+            Name = "Blabla",
+            ImageUrl = "Aaa.jpg",
+            Price = 10.04m,
+            CreationDate = DateTime.Now,
+            CategoryId = Guid.NewGuid(),
+            SupplierId = Guid.NewGuid()
+        };
+
         var productsController = new ProductsController(productServiceMock.Object, configurationMock.Object);
+        productServiceMock.Setup(productService => productService.UpdateAsync(product)).Returns(Task.FromResult(expected));  
 
         // Act
         var actionResult = productsController.Update(expected);
