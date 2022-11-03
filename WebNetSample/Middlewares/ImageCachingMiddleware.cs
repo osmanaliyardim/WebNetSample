@@ -22,7 +22,7 @@ namespace WebNetSample.WebNetMVC.Middlewares
             context.Response.GetTypedHeaders().CacheControl =
                 new CacheControlHeaderValue()
                 {
-                    MaxAge = TimeSpan.FromMinutes(_cacheAspect.duration),
+                    MaxAge = TimeSpan.FromMinutes(_cacheAspect._duration),
                     Private = _cacheAspect.Location == "Client",
                     Public = _cacheAspect.Location == "Any"
                 };

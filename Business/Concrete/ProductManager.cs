@@ -14,6 +14,7 @@ public class ProductManager : IProductService
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private const int durationInMinutes = 30;
 
     public ProductManager(IProductRepository productRepository, IMapper mapper)
     {
@@ -33,12 +34,12 @@ public class ProductManager : IProductService
     public async Task UpdateAsync(Product product) => 
         await _productRepository.UpdateAsync(product);
 
-    [CacheAspect(duration: 30)]
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<Product> GetByIdAsync(Guid productId) =>
         await _productRepository.GetAsync(entity => entity.Id == productId);
 
     [LogAspect(typeof(FileLogger))]
-    [CacheAspect(duration:20)]
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<List<Product>> GetListAsync(PaginationParameters paginationParameters) =>
         _productRepository.GetListAsync().Result
             .Skip(paginationParameters.RecordsToSkip)
@@ -48,7 +49,7 @@ public class ProductManager : IProductService
         await _productRepository.GetListAsync(entity => entity.CategoryId == categoryId);
 
     [LogAspect(typeof(FileLogger))]
-    [CacheAspect(duration: 20)]
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<List<ProductDetailDto>> GetProductDetailsAsync()
     {
         var productInfo = await _productRepository.GetProductDetailsAsync();
@@ -58,7 +59,7 @@ public class ProductManager : IProductService
         return productDetails;
     }
 
-    [CacheAspect(duration: 20)]
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<List<ProductDetailDto>> GetProductDetailsByCategoryIdAsync(Guid categoryId)
     {
         var productInfo = await _productRepository.GetProductDetailsAsync(entity => entity.CategoryId == categoryId);
@@ -68,7 +69,7 @@ public class ProductManager : IProductService
         return productDetails;
     }
 
-    [CacheAspect(duration: 20)]
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId)
     {
         var productInfo = await _productRepository.GetProductDetailsAsync(entity => entity.SupplierId == supplierId);
