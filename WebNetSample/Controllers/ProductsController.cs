@@ -53,6 +53,7 @@ public class ProductsController : Controller
     }
 
     [HttpGet]
+    [Route("/Products/Update/{id}")]
     public async Task<IActionResult> Edit(Guid id)
     {
         var productToEdit = await _productService.GetByIdAsync(id);

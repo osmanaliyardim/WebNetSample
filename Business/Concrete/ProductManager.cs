@@ -2,6 +2,7 @@
 using Core.Aspects.Logging;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using WebNetSample.Business.Abstract;
+using WebNetSample.Core.Aspects.Caching;
 using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using WebNetSample.Core.Pagination;
 using WebNetSample.DataAccess.Abstract;
@@ -14,6 +15,7 @@ public class ProductManager : IProductService
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private const int durationInMinutes = 30;
 
     public ProductManager(IProductRepository productRepository, IMapper mapper)
     {
@@ -21,50 +23,34 @@ public class ProductManager : IProductService
         _mapper = mapper;
     }
 
-    public async Task AddAsync(ProductDetailDto product)
-    {
-        var mappedProduct = _mapper.Map<Product>(product);
+    [CacheRemoveAspect("IProductService.Get")]
+    public async Task AddAsync(Product product) => 
+        await _productRepository.AddAsync(product);
 
-        await _productRepository.AddAsync(mappedProduct);
-    }
-
-    public async Task DeleteAsync(ProductDetailDto product) => 
+    [CacheRemoveAspect("IProductService.Get", Priority = 1)]
+    public async Task DeleteAsync(Product product) => 
         await _productRepository.DeleteAsync(p => p.Id == product.Id);
 
-    public async Task UpdateAsync(ProductDetailDto product)
-    {
-        var mappedProduct = _mapper.Map<Product>(product);
+    [CacheRemoveAspect("IProductService.Get")]
+    public async Task UpdateAsync(Product product) => 
+        await _productRepository.UpdateAsync(product);
 
-        await _productRepository.UpdateAsync(mappedProduct);
-    }
-
-    public async Task<ProductDetailDto> GetByIdAsync(Guid productId)
-    {
-        var productInfo = await _productRepository.GetAsync(product => product.Id == productId);
-
-        var productDetails = _mapper.Map<ProductDetailDto>(productInfo);
-
-        return productDetails;
-    }
+    [CacheAspect(duration: durationInMinutes)]
+    public async Task<Product> GetByIdAsync(Guid productId) =>
+        await _productRepository.GetAsync(entity => entity.Id == productId);
 
     [LogAspect(typeof(FileLogger))]
-    public async Task<List<ProductDetailDto>> GetAllAsync(PaginationParameters paginationParameters)
-    {
-        var productsInfo = await _productRepository.GetAllAsync();
-
-        var paginationProductsInfo = productsInfo
-                .Skip(paginationParameters.RecordsToSkip)
-                    .Take(paginationParameters.PageSize).ToList();
-
-        var productDetailsList = _mapper.Map<List<ProductDetailDto>>(productsInfo);
-
-        return productDetailsList;
-    }
+    [CacheAspect(duration: durationInMinutes)]
+    public async Task<List<Product>> GetListAsync(PaginationParameters paginationParameters) =>
+        _productRepository.GetListAsync().Result
+            .Skip(paginationParameters.RecordsToSkip)
+                .Take(paginationParameters.PageSize).ToList();
 
     public async Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId) =>
         await _productRepository.GetAllAsync(entity => entity.CategoryId == categoryId);
 
     [LogAspect(typeof(FileLogger))]
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<List<ProductDetailDto>> GetProductDetailsAsync()
     {
         var productInfo = await _productRepository.GetProductDetailsAsync();
@@ -74,6 +60,7 @@ public class ProductManager : IProductService
         return productDetails;
     }
 
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<List<ProductDetailDto>> GetProductDetailsByCategoryIdAsync(Guid categoryId)
     {
         var productInfo = await _productRepository.GetProductDetailsAsync(entity => entity.CategoryId == categoryId);
@@ -83,6 +70,7 @@ public class ProductManager : IProductService
         return productDetails;
     }
 
+    [CacheAspect(duration: durationInMinutes)]
     public async Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId)
     {
         var productInfo = await _productRepository.GetProductDetailsAsync(entity => entity.SupplierId == supplierId);

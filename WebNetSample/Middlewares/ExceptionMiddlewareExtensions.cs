@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Diagnostics;
 using WebNetSample.Core.Extensions;
 
-namespace WebNetSample.WebNetMVC.Exceptions;
+namespace WebNetSample.WebNetMVC.Middlewares;
 
 public static class ExceptionMiddlawareExtensions
 {
