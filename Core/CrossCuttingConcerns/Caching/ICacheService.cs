@@ -2,11 +2,9 @@
 
 public interface ICacheService
 {
-    void Add(string key, object value, int duration);
+    void Add<T>(string key, T value, int duration);
 
     T Get<T>(string key);
-
-    object Get(string key);
 
     bool IsAdded(string key);
 

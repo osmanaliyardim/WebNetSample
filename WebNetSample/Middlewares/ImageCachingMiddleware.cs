@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.ResponseCaching;
 using Microsoft.Net.Http.Headers;
 using WebNetSample.Core.Aspects.Caching;
+using WebNetSample.Core.CrossCuttingConcerns.Caching;
+using WebNetSample.Core.Utilities.IoC;
 
 namespace WebNetSample.WebNetMVC.Middlewares
 {
@@ -8,13 +10,12 @@ namespace WebNetSample.WebNetMVC.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly CacheAspect _cacheAspect;
+        private readonly ICacheService _cacheService;
 
-        public ImageCachingMiddleware(
-            RequestDelegate next,
-            CacheAspect cacheAspect)
+        public ImageCachingMiddleware(RequestDelegate next, ICacheService cacheService)
         {
             _next = next;
-            _cacheAspect = cacheAspect;
+            _cacheService = ServiceTool.ServiceProvider.GetService<ICacheService>();
         }
 
         public async Task Invoke(HttpContext context)
@@ -22,7 +23,7 @@ namespace WebNetSample.WebNetMVC.Middlewares
             context.Response.GetTypedHeaders().CacheControl =
                 new CacheControlHeaderValue()
                 {
-                    MaxAge = TimeSpan.FromMinutes(_cacheAspect.duration),
+                    MaxAge = TimeSpan.FromMinutes(_cacheAspect._duration),
                     Private = _cacheAspect.Location == "Client",
                     Public = _cacheAspect.Location == "Any"
                 };

@@ -13,30 +13,17 @@ public class MemoryCacheManager : ICacheService
         _memoryCache = memoryCache;
     }
 
-    public void Add(string key, object value, int duration)
-    {
+    public void Add<T>(string key, T value, int duration) =>
         _memoryCache.Set(key, value, TimeSpan.FromMinutes(duration));
-    }
 
-    public T Get<T>(string key)
-    {
-        return _memoryCache.Get<T>(key);
-    }
+    public T Get<T>(string key) =>
+        _memoryCache.Get<T>(key);
 
-    public object Get(string key)
-    {
-        return _memoryCache.Get(key);
-    }
+    public bool IsAdded(string key) =>
+        _memoryCache.TryGetValue(key, out _);
 
-    public bool IsAdded(string key)
-    {
-        return _memoryCache.TryGetValue(key, out _);
-    }
-
-    public void Remove(string key)
-    {
+    public void Remove(string key) =>
         _memoryCache.Remove(key);
-    }
 
     public void RemoveByPattern(string pattern)
     {
@@ -50,13 +37,24 @@ public class MemoryCacheManager : ICacheService
 
         foreach (var cacheItem in cacheEntriesCollection)
         {
-            ICacheEntry cacheItemValue = cacheItem.GetType().GetProperty("Value").GetValue(cacheItem, null);
+            ICacheEntry cacheItemValue = 
+                cacheItem.GetType()
+                    .GetProperty("Value")
+                        .GetValue(cacheItem, null);
+
             cacheCollectionValues.Add(cacheItemValue);
         }
 
-        var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        var regex = new Regex(
+            pattern,
+            RegexOptions.Singleline |
+            RegexOptions.Compiled |
+            RegexOptions.IgnoreCase);
         
-        var keysToRemove = cacheCollectionValues.Where(x => regex.IsMatch(x.Key.ToString())).Select(x => x.Key).ToString();
+        var keysToRemove = cacheCollectionValues.Where(cacheValues =>
+            regex.IsMatch(cacheValues.Key.ToString()))
+                .Select(cacheValues => cacheValues.Key)
+                    .ToString();
 
         foreach (var key in keysToRemove)
         {

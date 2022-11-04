@@ -7,10 +7,9 @@ namespace WebNetSample.Core.DependencyResolvers;
 
 public class CoreModule : ICoreModule
 {
-    public void Load(IServiceCollection serviceCollection)
+    public void Load(IServiceCollection services)
     {
-        serviceCollection.AddMemoryCache();
-
-        serviceCollection.AddSingleton<ICacheService, MemoryCacheManager>();
+        services.AddMemoryCache();
+        services.AddSingleton<ICacheService, MemoryCacheManager>();
     }
 }
