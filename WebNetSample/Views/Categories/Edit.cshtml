@@ -1,0 +1,42 @@
+﻿@using WebNetSample.Entity.Concrete;
+@model Category
+
+<p>
+    <h3 class="text-warning">You are editing <span class="text-danger">@Model.Name</span> category</h3>
+</p>
+
+@using (Html.BeginForm("Update", "Category", FormMethod.Post))
+{
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th colspan="2" align="center">Category Details</th>
+        </tr>
+        <tr>
+            <td>Id: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Id, new { @readonly = "readonly", @Value = @Model.Id })
+            </td>
+        </tr>
+        <tr>
+            <td>Name: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Name, new { @Value = @Model.Name })
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Creation Date: </td>
+            <td>
+                @Html.TextBoxFor(m => m.CreationDate, new { @readonly = "readonly", @Value = @Model.CreationDate })
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+}
+
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
-using WebNetSample.Entity.Concrete;
-using WebNetSample.Tests.Configurations;
+using WebNetSample.Entity.Dtos;
 using WebNetSample.WebNetMVC.Controllers;
 
 namespace WebNetSample.Tests;
@@ -13,7 +12,7 @@ public class CategoriesControllerTest
     {
         // Arrange
         var categoriesServiceMock = new Mock<ICategoryService>();
-
+        
         var categoriesController = new CategoriesController(categoriesServiceMock.Object);
         categoriesServiceMock.Setup(categoriesService => categoriesService.GetListAsync().Result).Returns(expected);
 
@@ -24,7 +23,7 @@ public class CategoriesControllerTest
         var okViewResult = actionResult.Result as ViewResult;
         Assert.NotNull(okViewResult);
 
-        var model = okViewResult.Model as List<Category>;
+        var model = okViewResult.Model as List<CategoryDetailDto>;
         Assert.NotNull(model);
 
         var actual = model;

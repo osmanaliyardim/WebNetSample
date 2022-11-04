@@ -8,7 +8,7 @@ public interface IEntityRepository<T> where T : BaseEntity
 
     Task<T> GetAsync(Expression<Func<T, bool>> filter);
 
-    Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null);
+    Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter = null);
 
     Task AddAsync(T entity);
 

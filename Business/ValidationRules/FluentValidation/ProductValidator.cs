@@ -24,12 +24,8 @@ public class ProductValidator : AbstractValidator<Product>
             .GreaterThan(0)
             .WithMessage("Product price can not set as under 0.");
 
-        RuleFor(product => product.ImageUrl)
+        RuleFor(product => product.ImagePath)
             .NotNull()
-            .WithMessage("Product Image URL can not be empty.");
-
-        RuleFor(product => product.ImageUrl)
-            .MinimumLength(10)
-            .WithMessage("Product Image URL must contain at least 10 characters.");
+            .WithMessage("Product Image Path can not be empty.");
     }
 }

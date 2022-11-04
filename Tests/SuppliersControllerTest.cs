@@ -25,7 +25,7 @@ public class SuppliersControllerTest
         var okViewResult = actionResult.Result as ViewResult;
         Assert.NotNull(okViewResult);
 
-        var model = okViewResult.Model as List<Supplier>;
+        var model = okViewResult.Model as List<SupplierDetailDto>;
         Assert.NotNull(model);
 
         var actual = model;

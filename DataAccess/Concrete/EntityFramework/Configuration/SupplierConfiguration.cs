@@ -14,6 +14,7 @@ public class SupplierConfiguration : BaseEntityConfiguration<Supplier>, IEntityT
         
         builder.Property(prop => prop.Id).HasColumnName("Id");
         builder.Property(prop => prop.Name).HasColumnName("Name");
+        builder.Property(prop => prop.CreationDate).HasColumnName("CreationDate");
 
         //  A supplier can contain more than one products.
         builder.HasMany(entity => entity.Products);

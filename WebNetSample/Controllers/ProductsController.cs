@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Core.Pagination;
-using WebNetSample.Entity.Concrete;
+using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.WebNetMVC.Controllers;
 
@@ -33,19 +33,19 @@ public class ProductsController : Controller
 
         var paginationParameters = paginationJson.Get<PaginationParameters>();
 
-        var productsWithDetails = await _productService.GetListAsync(paginationParameters);
+        var productsWithDetails = await _productService.GetAllAsync(paginationParameters);
 
         return View(productsWithDetails);
     }
 
     [HttpGet]
-    public IActionResult Add()
+    public async Task<IActionResult> Add()
     {
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(Product product)
+    public async Task<IActionResult> Add(ProductDetailDto product)
     {
         await _productService.AddAsync(product);
 
@@ -53,6 +53,7 @@ public class ProductsController : Controller
     }
 
     [HttpGet]
+    [Route("/Products/Update/{id}")]
     public async Task<IActionResult> Edit(Guid id)
     {
         var productToEdit = await _productService.GetByIdAsync(id);
@@ -61,7 +62,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(Product updatedProduct)
+    public async Task<IActionResult> Update(ProductDetailDto updatedProduct)
     {
         await _productService.UpdateAsync(updatedProduct);
 
