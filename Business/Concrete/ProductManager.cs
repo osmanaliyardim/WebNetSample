@@ -23,31 +23,68 @@ public class ProductManager : IProductService
         _mapper = mapper;
     }
 
+
     [CacheRemoveAspect("IProductService.Get")]
-    public async Task AddAsync(Product product) => 
-        await _productRepository.AddAsync(product);
+    public async Task AddAsync(ProductDetailDto product)
+    {
+        var mappedProduct = _mapper.Map<Product>(product);
+
+        await _productRepository.AddAsync(mappedProduct);
+    }
+        
 
     [CacheRemoveAspect("IProductService.Get", Priority = 1)]
-    public async Task DeleteAsync(Product product) => 
-        await _productRepository.DeleteAsync(p => p.Id == product.Id);
+    public async Task DeleteAsync(ProductDetailDto product)
+    {
+        var mappedProduct = _mapper.Map<Product>(product);
+
+        await _productRepository.DeleteAsync(p => p.Id == mappedProduct.Id);
+    }
+
 
     [CacheRemoveAspect("IProductService.Get")]
-    public async Task UpdateAsync(Product product) => 
-        await _productRepository.UpdateAsync(product);
+    public async Task UpdateAsync(ProductDetailDto product)
+    {
+        var mappedProduct = _mapper.Map<Product>(product);
+
+        await _productRepository.UpdateAsync(mappedProduct);
+    }
+
 
     [CacheAspect(duration: durationInMinutes)]
-    public async Task<Product> GetByIdAsync(Guid productId) =>
-        await _productRepository.GetAsync(entity => entity.Id == productId);
+    public async Task<ProductDetailDto> GetByIdAsync(Guid productId)
+    {
+        var product = await _productRepository.GetAsync(entity => entity.Id == productId);
+
+        var mappedProduct = _mapper.Map<ProductDetailDto>(product);
+
+        return mappedProduct;
+    }
+        
 
     [LogAspect(typeof(FileLogger))]
     [CacheAspect(duration: durationInMinutes)]
-    public async Task<List<Product>> GetListAsync(PaginationParameters paginationParameters) =>
-        _productRepository.GetListAsync().Result
+    public async Task<List<ProductDetailDto>> GetAllAsync(PaginationParameters paginationParameters)
+    {
+        var products = _productRepository.GetAllAsync().Result
             .Skip(paginationParameters.RecordsToSkip)
                 .Take(paginationParameters.PageSize).ToList();
 
-    public async Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId) =>
-        await _productRepository.GetAllAsync(entity => entity.CategoryId == categoryId);
+        var mappedProducts = _mapper.Map<List<ProductDetailDto>>(products);
+
+        return mappedProducts;
+    }
+        
+
+    public async Task<List<ProductDetailDto>> GetListByCategoryIdAsync(Guid categoryId)
+    {
+        var products = await _productRepository.GetAllAsync(entity => entity.CategoryId == categoryId);
+
+        var mappedProducts = _mapper.Map<List<ProductDetailDto>>(products);
+
+        return mappedProducts;
+    }
+        
 
     [LogAspect(typeof(FileLogger))]
     [CacheAspect(duration: durationInMinutes)]
@@ -69,6 +106,7 @@ public class ProductManager : IProductService
 
         return productDetails;
     }
+
 
     [CacheAspect(duration: durationInMinutes)]
     public async Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId)

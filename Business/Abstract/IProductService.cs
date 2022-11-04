@@ -1,4 +1,5 @@
-﻿using WebNetSample.Core.Pagination;
+﻿using System.Linq.Expressions;
+using WebNetSample.Core.Pagination;
 using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.Business.Abstract;

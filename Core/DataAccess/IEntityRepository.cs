@@ -15,5 +15,4 @@ public interface IEntityRepository<T> where T : BaseEntity
     Task UpdateAsync(T entity);
 
     Task DeleteAsync(Expression<Func<T, bool>> filter);
-
 }

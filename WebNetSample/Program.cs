@@ -10,7 +10,6 @@ using WebNetSample.Core.Utilities.IoC;
 using WebNetSample.DataAccess;
 using WebNetSample.WebNetMVC.Middlewares;
 using WebNetSample.Entity.Concrete;
-using WebNetSample.WebNetMVC.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 

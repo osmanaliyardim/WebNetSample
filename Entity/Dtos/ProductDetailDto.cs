@@ -8,13 +8,13 @@ public record ProductDetailDto : BaseDto
     public ProductDetailDto(
         string name,
         decimal price,
-        string imageUrl,
+        string imagePath,
         string categoryname,
         string supplierName)
     {
         Name = name;
         Price = price;
-        ImageUrl = imageUrl;
+        ImagePath = imagePath;
         CategoryName = categoryname;
         SupplierName = supplierName;
     }
@@ -23,7 +23,7 @@ public record ProductDetailDto : BaseDto
 
     public decimal Price { get; }
 
-    public string ImageUrl { get; }
+    public string ImagePath { get; }
 
     public string CategoryName { get; }
 
