@@ -1,5 +1,4 @@
 ﻿using WebNetSample.Core.Pagination;
-using WebNetSample.Entity.Concrete;
 using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.Business.Abstract;
@@ -7,9 +6,7 @@ namespace WebNetSample.Business.Abstract;
 public interface IProductService
 {
 
-    Task<List<Product>> GetListAsync(PaginationParameters paginationParameters);
-
-    Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId);
+    Task<List<ProductDetailDto>> GetAllAsync(PaginationParameters paginationParameters);
 
     Task<List<ProductDetailDto>> GetProductDetailsAsync();
 
@@ -17,12 +14,12 @@ public interface IProductService
 
     Task<List<ProductDetailDto>> GetProductDetailsBySupplierIdAsync(Guid supplierId);
 
-    Task<Product> GetByIdAsync(Guid productId);
+    Task<ProductDetailDto> GetByIdAsync(Guid productId);
 
-    Task AddAsync(Product product);
+    Task AddAsync(ProductDetailDto product);
 
-    Task DeleteAsync(Product product);
+    Task DeleteAsync(ProductDetailDto product);
 
-    Task UpdateAsync(Product product);
+    Task UpdateAsync(ProductDetailDto product);
 
 }

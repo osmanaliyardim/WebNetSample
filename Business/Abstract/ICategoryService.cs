@@ -1,14 +1,14 @@
-﻿using WebNetSample.Entity.Concrete;
+﻿using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.Business.Abstract;
 
 public interface ICategoryService
 {
-    Task<List<Category>> GetListAsync();
+    Task<List<CategoryDetailDto>> GetAllAsync();
 
-    Task<Category> GetByIdAsync(Guid categoryId);
+    Task<CategoryDetailDto> GetByIdAsync(Guid categoryId);
 
-    Task AddAsync(Category category);
+    Task AddAsync(CategoryDetailDto category);
 
-    Task UpdateAsync(Category category);
+    Task UpdateAsync(CategoryDetailDto category);
 }

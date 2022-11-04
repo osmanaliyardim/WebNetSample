@@ -8,6 +8,13 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<ProductDetails, ProductDetailDto>().ReverseMap();
+        CreateMap<Product, ProductDetailDto>()
+                .ForMember(
+                    dest => dest.CategoryName,
+                    opt => opt.MapFrom(src => src.CategoryId)
+                ).ReverseMap();
+
+        CreateMap<Category, CategoryDetailDto>().ReverseMap();
+        CreateMap<Supplier, SupplierDetailDto>().ReverseMap();
     }
 }

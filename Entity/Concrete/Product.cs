@@ -24,9 +24,6 @@ public class Product : BaseEntity
     [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter an image path")]
     public string ImagePath { get; set; }
 
-    [NotMapped]
-    public IFormFile? ImageFile { get; set; }
-
     public virtual ICollection<Category> Categories { get; set; }
     public virtual ICollection<Supplier> Suppliers { get; set; }
 
@@ -39,15 +36,13 @@ public class Product : BaseEntity
         Guid supplierId,
         string name,
         decimal price,
-        string imagePath,
-        IFormFile? imageFile) : this()
+        string imagePath) : this()
     {
         Id = id;
         CategoryId = categoryId;
         SupplierId = supplierId;
         Name = name;
         Price = price;
-        ImagePath = imagePath;
-        ImageFile = imageFile;  
+        ImagePath = imagePath; 
     }
 }

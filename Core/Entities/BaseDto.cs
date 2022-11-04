@@ -1,8 +1,8 @@
 ﻿namespace WebNetSample.Core.Entities;
 
-public class BaseDto
+public record BaseDto
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; }
 
     public BaseDto()
     {

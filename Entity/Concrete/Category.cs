@@ -17,9 +17,6 @@ public class Category : BaseEntity
     [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter an image path")]
     public string ImagePath { get; set; }
 
-    [NotMapped]
-    public IFormFile? ImageFile { get; set; }
-
     public virtual ICollection<Product> Products { get; set; }
 
     public Category()
@@ -34,6 +31,5 @@ public class Category : BaseEntity
         Id = id;
         Name = name;
         ImagePath = imagePath;
-        ImageFile = imageFile;
     }
 }

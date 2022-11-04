@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Aspects.Logging;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Core.Aspects.Caching;
 using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
@@ -46,7 +47,7 @@ public class ProductManager : IProductService
                 .Take(paginationParameters.PageSize).ToList();
 
     public async Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId) =>
-        await _productRepository.GetListAsync(entity => entity.CategoryId == categoryId);
+        await _productRepository.GetAllAsync(entity => entity.CategoryId == categoryId);
 
     [LogAspect(typeof(FileLogger))]
     [CacheAspect(duration: durationInMinutes)]
