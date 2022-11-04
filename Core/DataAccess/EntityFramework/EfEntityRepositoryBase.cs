@@ -55,18 +55,16 @@ public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityReposit
         await DbContext.SaveChangesAsync();
     }
 
-    public void DetachLocal<Entity>(DbContext context, Entity entity, Guid entryId)
-    where Entity : BaseEntity
+    public void DetachLocal<T>(DbContext context, T t, Guid entryId)
+        where T : BaseEntity
     {
-        var local = context.Set<Entity>()
+        var local = context.Set<T>()
             .Local
             .FirstOrDefault(entry => entry.Id.Equals(entryId));
-
-        if (local != null)
+        if (!(local == null))
         {
             context.Entry(local).State = EntityState.Detached;
         }
-
-        context.Entry(entity).State = EntityState.Modified;
+        context.Entry(t).State = EntityState.Modified;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Castle.DynamicProxy;
 using WebNetSample.Core.CrossCuttingConcerns.Logging;
 
-namespace Core.Aspects.Logging;
+namespace WebNetSample.Core.Aspects.Logging;
 
 public class LogAspect : BaseLogAspect
 {

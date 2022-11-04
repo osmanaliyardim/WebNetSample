@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.Aspects.Logging;
+using WebNetSample.Core.Aspects.Logging;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Core.Aspects.Caching;

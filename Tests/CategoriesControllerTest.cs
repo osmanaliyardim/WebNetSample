@@ -8,16 +8,16 @@ namespace WebNetSample.Tests;
 public class CategoriesControllerTest
 {
     [Theory, AutoMoqData]
-    public void Index_Should_Return_As_Expected(List<CategoryDetailDto> expected)
+    public void Index_ShouldReturnAsExpected(List<Category> expected)
     {
         // Arrange
-        var productServiceMock = new Mock<ICategoryService>();
-
-        var sut = new CategoriesController(productServiceMock.Object);
-        productServiceMock.Setup(c => c.GetAllAsync().Result).Returns(expected);
+        var categoriesServiceMock = new Mock<ICategoryService>();
+        
+        var categoriesController = new CategoriesController(categoriesServiceMock.Object);
+        categoriesServiceMock.Setup(categoriesService => categoriesService.GetListAsync().Result).Returns(expected);
 
         // Act
-        var actionResult = sut.Index();
+        var actionResult = categoriesController.Index();
 
         // Assert
         var okViewResult = actionResult.Result as ViewResult;
@@ -28,9 +28,12 @@ public class CategoriesControllerTest
 
         var actual = model;
 
-        for (int i = 0; i < actual.Count; i++)
+        Assert.Equal(expected.Count, actual.Count);
+
+        for (int i = 0; i < expected.Count; i++)
         {
-            Assert.Equal(expected[i], actual[i]);
+            Assert.Equal(expected[i].Name, actual[i].Name);
+            Assert.Equal(expected[i].CreationDate, actual[i].CreationDate);
         }
     }
 }
