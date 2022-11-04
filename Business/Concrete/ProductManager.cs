@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Core.Aspects.Logging;
 using WebNetSample.Business.Abstract;
+using WebNetSample.Core.Aspects.Logging;
 using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using WebNetSample.Core.Pagination;
 using WebNetSample.DataAccess.Abstract;
@@ -20,11 +20,14 @@ public class ProductManager : IProductService
         _mapper = mapper;
     }
 
-    public Task AddAsync(Product product) => _productRepository.AddAsync(product);
+    public async Task AddAsync(Product product) => 
+        await _productRepository.AddAsync(product);
 
-    public void Delete(Product product) => _productRepository.Delete(p => p.Id == product.Id);
+    public async Task DeleteAsync(Product product) => 
+        await _productRepository.DeleteAsync(p => p.Id == product.Id);
 
-    public void Update(Product product) => _productRepository.Update(product);
+    public async Task UpdateAsync(Product product) =>
+        await _productRepository.UpdateAsync(product);
 
     public async Task<Product> GetByIdAsync(Guid productId) =>
         await _productRepository.GetAsync(entity => entity.Id == productId);
