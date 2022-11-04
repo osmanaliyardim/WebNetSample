@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Business.Mappings;
 using WebNetSample.Business.DependencyResolvers.Autofac;
 using WebNetSample.Core.DependencyResolvers;
+using WebNetSample.Core.Extensions;
 using WebNetSample.Core.Utilities.IoC;
 using WebNetSample.DataAccess;
 using WebNetSample.WebNetMVC.Middlewares;
@@ -11,6 +12,11 @@ using WebNetSample.Core.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+});
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
@@ -50,11 +56,6 @@ app.UseAuthorization();
 app.UseRouting();
 
 app.UseResponseCaching();
-
-app.UseWhen(context => context.Request.Path.Value.Contains("Images/"), appBuilder =>
-{
-    appBuilder.UseMiddleware<ImageCachingMiddleware>();
-});
 
 app.MapControllerRoute(
     name: "default",

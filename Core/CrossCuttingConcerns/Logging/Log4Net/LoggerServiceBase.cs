@@ -23,18 +23,58 @@ public class LoggerServiceBase
         _log = LogManager.GetLogger(loggerRepository.Name, name);
     }
 
-    public void Info(object logMessage) =>
-        _log.Info(logMessage); 
+    public bool IsInfoEnabled => 
+        _log.IsInfoEnabled;
 
-    public void Debug(object logMessage) =>
-        _log.Debug(logMessage);
+    public bool IsDebugEnabled =>
+        _log.IsDebugEnabled;
 
-    public void Warn(object logMessage) =>
-        _log.Warn(logMessage);
+    public bool IsWarnEnabled => 
+        _log.IsWarnEnabled;
 
-    public void Fatal(object logMessage) =>
-        _log.Fatal(logMessage);   
+    public bool IsFatalEnabled => 
+        _log.IsFatalEnabled;
 
-    public void Error(object logMessage) =>
-        _log.Error(logMessage);
+    public bool IsErrorEnabled => 
+        _log.IsErrorEnabled;
+
+    public void Info(object logMessage)
+    {
+        if (IsInfoEnabled)
+        {
+            _log.Info(logMessage);
+        }
+    }
+
+    public void Debug(object logMessage)
+    {
+        if (IsDebugEnabled)
+        {
+            _log.Debug(logMessage);
+        }
+    }
+
+    public void Warn(object logMessage)
+    {
+        if (IsWarnEnabled)
+        {
+            _log.Warn(logMessage);
+        }
+    }
+
+    public void Fatal(object logMessage)
+    {
+        if (IsFatalEnabled)
+        {
+            _log.Fatal(logMessage); 
+        }
+    }
+
+    public void Error(object logMessage)
+    {
+        if (IsErrorEnabled)
+        {
+            _log.Error(logMessage);
+        }
+    }
 }
