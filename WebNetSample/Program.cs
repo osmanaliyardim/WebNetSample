@@ -45,10 +45,9 @@ app.UseAuthorization();
 app.UseEndpoints(options =>
 {
     options.MapControllerRoute(
-                name: "images",
-                pattern: "images/{id}",
-                new { controller = "Categories", action = "GetImageById" }
-        );
+        name: "images",
+        pattern: "images/{id}",
+        new { controller = "Categories", action = "GetImageById" });
 
     options.MapControllerRoute(
         name: "default",
