@@ -1,13 +1,16 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.Mappings;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using WebNetSample.Business.DependencyResolvers.Autofac;
 using WebNetSample.Core.DependencyResolvers;
 using WebNetSample.Core.Extensions;
 using WebNetSample.Core.Utilities.IoC;
 using WebNetSample.DataAccess;
 using WebNetSample.WebNetMVC.Middlewares;
-using WebNetSample.Core.Extensions;
+using WebNetSample.Entity.Concrete;
+using WebNetSample.WebNetMVC.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,8 +60,16 @@ app.UseRouting();
 
 app.UseResponseCaching();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(options =>
+{
+    options.MapControllerRoute(
+        name: "images",
+        pattern: "images/{id}",
+        new { controller = "Categories", action = "GetImageById" });
+
+    options.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.Run();

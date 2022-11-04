@@ -35,8 +35,7 @@ public class CategoriesController : Controller
         return RedirectToAction("Index");
     }
 
-    [HttpGet]
-    [Route("/Update/{id}")]
+    [HttpGet("Update/{id}")]
     public async Task<IActionResult> Edit(Guid id)
     {
         var categoryToEdit = await _categoryService.GetByIdAsync(id);
@@ -67,5 +66,12 @@ public class CategoriesController : Controller
         await _categoryService.UpdateAsync(updatedCategory);
 
         return RedirectToAction("Index");
+    }
+
+    public async Task<string> GetImageByIdAsync(Guid id)
+    {
+        var category = await _categoryService.GetByIdAsync(id);
+
+        return category.ImagePath;
     }
 }
