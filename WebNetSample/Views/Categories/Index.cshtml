@@ -2,7 +2,7 @@
 @model IEnumerable<CategoryDetailDto>
 
 @{
-    ViewData["Title"] = "Detailed Category Page";
+    ViewData["Title"] = "Detailed Categories Page";
 }
 
 <p>
@@ -25,24 +25,9 @@
             <th>Operations</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImagePath)
-                </td>
-                <td>
-                    <img src="@item.ImagePath" alt="@item.Name" style="height:500px;width:700px;">
-                </td>
-                <td>
-                    <a class="btn btn-warning" asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id">EDIT</a>
-                    <a class="btn btn-danger" asp-controller="Categories" asp-action="Delete" asp-route-id="@item.Id">DELETE</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+    @await Component.InvokeAsync("CategoriesWidget");
 </table>
+
+@section Footer {
+    <h3 class="alert alert-warning">You can <strong class="text-danger">NOT</strong> edit categories on this page!</h3>
+}

@@ -1,9 +1,19 @@
-﻿@{
+﻿@using WebNetSample.Entity.Dtos;
+@model IEnumerable<CategoryDetailDto>
+
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "_HomeLayout";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Epam WEB .NET Mentoring Program</h1>
-    <h5 class="text-danger"><span class="text-dark">Mentee </span> Osman Ali YARDIM</h5>
-    <h5 class="text-warning"><span class="text-dark">Mentor </span> Dzmitry Yaniuk</h5>
+    
+    @foreach (var item in Model)
+     {
+        <img src="@item.ImagePath" alt="@item.Name" style="height:10%;width:12.5%;">
+     }
+
+    <h5 class="text-danger"><span class="text-dark" style="margin:20%">Mentee: </span> Osman Ali YARDIM</h5>
+    <h4 class="text-warning"><span class="text-dark" style="margin:2%">Mentor: </span> Dzmitry Yaniuk</h4>
 </div>

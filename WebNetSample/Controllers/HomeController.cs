@@ -1,19 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebNetSample.Business.Abstract;
 
 namespace WebNetSample.WebNetMVC.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ICategoryService _categoryService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ICategoryService categoryService)
     {
-        _logger = logger;
+        _categoryService = categoryService; 
     }
 
     [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        var categoryImages = _categoryService.GetAllAsync();
+
+        return View(categoryImages.Result);
     }
 }
