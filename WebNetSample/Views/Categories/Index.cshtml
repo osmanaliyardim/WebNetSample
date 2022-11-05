@@ -1,5 +1,5 @@
-﻿@using WebNetSample.Entity.Concrete;
-@model IEnumerable<Category>
+﻿@using WebNetSample.Entity.Dtos;
+@model IEnumerable<CategoryDetailDto>
 
 @{
     ViewData["Title"] = "Detailed Category Page";
@@ -16,9 +16,6 @@
         </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -32,9 +29,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>

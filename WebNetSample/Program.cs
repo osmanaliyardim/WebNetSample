@@ -1,15 +1,13 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using Business.Mappings;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using WebNetSample.Business.DependencyResolvers.Autofac;
 using WebNetSample.Core.DependencyResolvers;
 using WebNetSample.Core.Extensions;
 using WebNetSample.Core.Utilities.IoC;
 using WebNetSample.DataAccess;
 using WebNetSample.WebNetMVC.Middlewares;
-using WebNetSample.Entity.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +18,14 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
     new CoreModule()
 });
 
-builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+var mapperConfig = new MapperConfiguration(config =>
+{
+    config.AddProfile(new MappingProfile());
+});
 
-// Register services directly with Autofac here. Don't
-// call builder.Populate(), that happens in AutofacServiceProviderFactory.
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 builder.Services.AddDependencyResolvers(

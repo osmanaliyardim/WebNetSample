@@ -17,16 +17,19 @@ public class Category : BaseEntity
     [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter an image path")]
     public string ImagePath { get; set; }
 
+    [NotMapped]
+    public IFormFile? ImageFile { get; }
+
     public virtual ICollection<Product> Products { get; set; }
 
     public Category()
     {
     }
 
-    public Category(Guid id, 
+    public Category(
+        Guid id, 
         string name, 
-        string imagePath,
-        IFormFile imageFile) : this()
+        string imagePath) : this()
     {
         Id = id;
         Name = name;

@@ -1,28 +1,29 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Http;
 using WebNetSample.Core.Entities;
 
-namespace WebNetSample.Entity.Dtos
+namespace WebNetSample.Entity.Dtos;
+
+public record CategoryDetailDto : BaseDto
 {
-    public record CategoryDetailDto : BaseDto
+    public CategoryDetailDto(
+        Guid id,
+        string name,
+        string imagePath,
+        IFormFile? imageFile)
     {
-        public CategoryDetailDto(
-            string name,
-            string imagePath,
-            IFormFile? imageFile)
-        {
-            Name = name;
-            ImagePath = imagePath;
-            ImageFile = imageFile;
-        }
-
-        public string Name { get; }
-
-        public string ImagePath { get; }
-
-        public IFormFile? ImageFile { get; }
+        Id = id;
+        Name = name;
+        ImagePath = imagePath;
+        ImageFile = imageFile;
     }
+
+    public Guid Id { get; }
+
+    public string Name { get; }
+
+    public string ImagePath { get; }
+
+    public IFormFile? ImageFile { get; }
+
+    public List<ProductDetailDto> Products { get; }
 }

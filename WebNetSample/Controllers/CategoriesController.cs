@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Entity.Dtos;
 
@@ -36,7 +35,7 @@ public class CategoriesController : Controller
         return RedirectToAction("Index");
     }
 
-    [HttpGet("Update/{id}")]
+    [HttpGet("/Categories/Update/{id}")]
     public async Task<IActionResult> Edit(Guid id)
     {
         var categoryToEdit = await _categoryService.GetByIdAsync(id);

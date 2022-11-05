@@ -1,5 +1,5 @@
-﻿@using WebNetSample.Entity.Concrete;
-@model Category
+﻿@using WebNetSample.Entity.Dtos;
+@model CategoryDetailDto
 
 <p>
     <h3 class="text-warning">You are editing <span class="text-danger">@Model.Name</span> category</h3>
@@ -22,12 +22,6 @@
             <td>
                 @Html.TextBoxFor(m => m.Name, new { @Value = @Model.Name })
                 <span class="text-danger" asp-validation-for="Name"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>Creation Date: </td>
-            <td>
-                @Html.TextBoxFor(m => m.CreationDate, new { @readonly = "readonly", @Value = @Model.CreationDate })
             </td>
         </tr>
         <tr>

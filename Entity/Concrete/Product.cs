@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using WebNetSample.Core.Entities;
 
 namespace WebNetSample.Entity.Concrete;
@@ -9,7 +7,12 @@ namespace WebNetSample.Entity.Concrete;
 public class Product : BaseEntity
 {
     public Guid CategoryId { get; set; }
+
+    public string CategoryName { get; set; }
+
     public Guid SupplierId { get; set; }
+
+    public string SupplierName { get; set; }
 
     [DisplayName("Product Name")]
     [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a name")]
@@ -31,7 +34,8 @@ public class Product : BaseEntity
     {
     }
 
-    public Product(Guid id,
+    public Product(
+        Guid id,
         Guid categoryId,
         Guid supplierId,
         string name,

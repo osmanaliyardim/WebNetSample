@@ -21,8 +21,6 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
 
         builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
-
-        builder.RegisterType<Mapper>().As<IMapper>().SingleInstance();
         
         builder.RegisterType<MemoryCacheManager>().As<ICacheService>().SingleInstance();
 

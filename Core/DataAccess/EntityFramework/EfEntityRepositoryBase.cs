@@ -58,13 +58,16 @@ public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityReposit
     public void DetachLocal<T>(DbContext context, T t, Guid entryId)
         where T : BaseEntity
     {
-        var local = context.Set<T>()
+        var local = context
+            .Set<T>()
             .Local
             .FirstOrDefault(entry => entry.Id.Equals(entryId));
+
         if (!(local == null))
         {
             context.Entry(local).State = EntityState.Detached;
         }
+
         context.Entry(t).State = EntityState.Modified;
     }
 }

@@ -7,8 +7,8 @@ public abstract class BaseEntityConfiguration<T> where T : BaseEntity
 {
     protected void Configure(EntityTypeBuilder<T> builder)
     {
-        builder.HasKey(prop => prop.Id);
+        builder.HasKey(entity => entity.Id);
         
-        builder.Property(prop => prop.CreationDate);
+        builder.Property(entity => entity.CreationDate);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Concrete.EntityFramework.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebNetSample.Entity.Concrete;
 
@@ -20,5 +21,9 @@ public class WebNetSampleDBContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(WebNetSampleDBContext).Assembly);
+        
+        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductConfiguration());
+        modelBuilder.ApplyConfiguration(new SupplierConfiguration());
     }
 }

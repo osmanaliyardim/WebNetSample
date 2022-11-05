@@ -90,6 +90,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("CategoryId");
 
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreationDate");
@@ -112,6 +116,10 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("SupplierId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("SupplierId");
+
+                    b.Property<string>("SupplierName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -12,8 +12,8 @@ using WebNetSample.DataAccess.Concrete.EntityFramework.Contexts;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(WebNetSampleDBContext))]
-    [Migration("20221027210835_AddNewFeaturesForImageUpload")]
-    partial class AddNewFeaturesForImageUpload
+    [Migration("20221105161911_InitMigrationForEntities")]
+    partial class InitMigrationForEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("CategoryId");
 
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreationDate");
@@ -114,6 +118,10 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("SupplierId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("SupplierId");
+
+                    b.Property<string>("SupplierName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

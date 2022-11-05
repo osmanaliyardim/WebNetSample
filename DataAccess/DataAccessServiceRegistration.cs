@@ -14,7 +14,7 @@ public static class DataAccessServiceRegistration
     {
         services.AddDbContext<WebNetSampleDBContext>(options =>
                                                  options.UseSqlServer(
-                                                     configuration.GetConnectionString("WebNetSampleConnectionStringForMac")));
+                                                     configuration.GetConnectionString("WebNetSampleConnectionStringForWindows")));
 
         services.AddSingleton<ISupplierRepository, EfSupplierRepository>();
         services.AddSingleton<IProductRepository, EfProductRepository>();
