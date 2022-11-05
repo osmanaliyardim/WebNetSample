@@ -50,6 +50,14 @@
 
     <div class="container">
         <main role="main" class="pb-3">
+            @if (IsSectionDefined("Images"))
+            {
+                await RenderSectionAsync("Images", false);
+            }
+            else
+            {
+                <h1> No image to show</h1>
+            }
             @RenderBody()
         </main>
     </div>

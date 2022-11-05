@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-         @if (IsSectionDefined("Header"))
+        @if (IsSectionDefined("Header"))
         {
             await RenderSectionAsync("Header", false);
         }
@@ -61,7 +61,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-         @if (IsSectionDefined("Footer"))
+        @if (IsSectionDefined("Footer"))
         {
             await RenderSectionAsync("Footer", false);
         }
