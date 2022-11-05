@@ -10,12 +10,6 @@
 </head>
 <body>
     <header>
-        @if (IsSectionDefined("Header"))
-        {
-            await RenderSectionAsync("Header", required: false);
-        }
-        else
-        {
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container-fluid">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebNetSample</a>
@@ -52,25 +46,26 @@
                     </div>
                 </div>
             </nav>
-        }
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
+            @if (IsSectionDefined("Images"))
+            {
+                await RenderSectionAsync("Images", required: false);
+            }
+            else
+            {
+                <h1> No image to show</h1>
+            }
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        @if (IsSectionDefined("Footer"))
-        {
-            await RenderSectionAsync("Footer", required: false);
-        }
-        else
-        {
             <div class="container">
                 &copy; 2022 - WebNetSample - <a href="https://epam.com">EPAM</a>
             </div>
-        }
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
