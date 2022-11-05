@@ -52,7 +52,7 @@
         <main role="main" class="pb-3">
             @if (IsSectionDefined("Images"))
             {
-                await RenderSectionAsync("Images", false);
+                await RenderSectionAsync("Images", required: false);
             }
             else
             {

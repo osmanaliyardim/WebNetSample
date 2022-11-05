@@ -1,13 +1,13 @@
 ﻿@using WebNetSample.Entity.Dtos;
 @model CategoryDetailDto
 
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+}
+
 <p>
     <h3 class="text-warning">You are editing <span class="text-danger">@Model.Name</span> category</h3>
 </p>
 
 @await Component.InvokeAsync("CategoryEditWidget");
-
-@section Scripts {
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-}

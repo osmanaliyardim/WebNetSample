@@ -5,6 +5,10 @@
     ViewData["Title"] = "Detailed Categories Page";
 }
 
+@section Footer {
+    <h3 class="alert alert-warning">You can <strong class="text-danger">NOT</strong> edit categories on this page!</h3>
+}
+
 <p>
     <a class="btn btn-success" asp-controller="Categories" asp-action="Add" style="text-transform:uppercase">New Category</a>
 </p>
@@ -28,6 +32,4 @@
     @await Component.InvokeAsync("CategoriesWidget");
 </table>
 
-@section Footer {
-    <h3 class="alert alert-warning">You can <strong class="text-danger">NOT</strong> edit categories on this page!</h3>
-}
+@await RenderSectionAsync("Footer");
