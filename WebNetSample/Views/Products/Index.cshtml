@@ -37,33 +37,5 @@
             <th>Operations</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImagePath)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SupplierName)
-                </td>
-                <td>
-                    <a class="btn btn-warning" asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id">EDIT</a>
-                    <a class="btn btn-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id">DELETE</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+    @await Component.InvokeAsync("ProductsWidget");
 </table>

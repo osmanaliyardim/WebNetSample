@@ -6,7 +6,7 @@
 }
 
 @section Footer {
-    <h3 class="alert alert-warning">You can <strong class="text-danger">NOT</strong> edit categories on this page!</h3>
+    <h3 class="alert alert-warning text-center">You can <strong class="text-danger">NOT</strong> edit categories on this page!</h3>
 }
 
 <p>
@@ -29,7 +29,5 @@
             <th>Operations</th>
         </tr>
     </thead>
-    @await Component.InvokeAsync("CategoriesWidget");
+    @await Component.InvokeAsync("CategoriesWidget")
 </table>
-
-@await RenderSectionAsync("Footer");

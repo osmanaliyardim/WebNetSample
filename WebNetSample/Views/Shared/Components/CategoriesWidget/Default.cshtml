@@ -1,0 +1,26 @@
+﻿@using WebNetSample.Entity.Dtos;
+@model List<CategoryDetailDto>
+
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImagePath)
+            </td>
+            <td>
+                <img src="@item.ImagePath" alt="@item.Name" style="height:10%;width:12.5%;">
+            </td>
+            <td>
+                <a class="btn btn-warning" asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id">EDIT</a>
+                <a class="btn btn-danger" asp-controller="Categories" asp-action="Delete" asp-route-id="@item.Id">DELETE</a>
+            </td>
+        </tr>
+     }
+</tbody>

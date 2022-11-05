@@ -1,0 +1,52 @@
+﻿@using WebNetSample.Entity.Dtos;
+@model ProductDetailDto
+
+@using (Html.BeginForm("Update", "Products", FormMethod.Post))
+{
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th colspan="2" align="center">Product Details</th>
+        </tr>
+        <tr>
+            <td>Id: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Id, new { @readonly = "readonly", @Value = @Model.Id })
+            </td>
+        </tr>
+        <tr>
+            <td>Name: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Name, new { @Value = @Model.Name })
+            </td>
+        </tr>
+        <tr>
+            <td>Category: </td>
+            <td>
+                @Html.DropDownListFor(m => m.CategoryName, new List<SelectListItem>
+                { new SelectListItem{Text="Toys", Value="cc1fd238-f590-483e-ab5c-15006f73eb92"}}, "Please select a category")
+            </td>
+        </tr>
+        <tr>
+            <td>Supplier: </td>
+            <td>
+                @Html.DropDownListFor(m => m.SupplierName, new List<SelectListItem>
+                { new SelectListItem{Text="Xyz", Value="aa1e7065-a0cf-467f-942c-cba70a5f7b61"}}, "Please select a supplier")
+            </td>
+        </tr>
+        <tr>
+            <td>Price: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Price, new { @Value = @Model.Price })
+            </td>
+        </tr>
+        <tr>
+            <td>Image URL: </td>
+            <td>
+                @Html.TextBoxFor(m => m.ImagePath, new { @Value = @Model.ImagePath })
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+}
