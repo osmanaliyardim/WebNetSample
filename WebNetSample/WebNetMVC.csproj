@@ -1,47 +1,61 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Description>Epam Mentoring Program Product</Description>
-    <Copyright>Osman Ali YARDIM</Copyright>
-    <PackageProjectUrl>https://github.com/osmanaliyardim/WebNetSample</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/osmanaliyardim/WebNetSample</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'WebNetSample' " />
-  <ItemGroup>
-    <Content Remove="wwwroot\XmlData\log4net.config.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Program.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Views\Suppliers\" />
-    <Folder Include="wwwroot\Images\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="wwwroot\XmlData\log4net.config.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj" />
-    <ProjectReference Include="..\Entity\Entity.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Description>Epam Mentoring Program Product</Description>
+		<Copyright>Osman Ali YARDIM</Copyright>
+		<PackageProjectUrl>https://github.com/osmanaliyardim/WebNetSample</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/osmanaliyardim/WebNetSample</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'WebNetSample' " />
+	<ItemGroup>
+		<Content Remove="wwwroot\XmlData\log4net.config.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Program.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Models\" />
+		<Folder Include="Views\Suppliers\" />
+		<Folder Include="wwwroot\Images\" />
+		<Folder Include="Components\" />
+		<Folder Include="Views\Shared\Components\" />
+		<Folder Include="Views\Shared\Components\CategoryEditWidget\" />
+		<Folder Include="Views\Shared\Components\ProductEditWidget\" />
+		<Folder Include="Views\Shared\Components\CategoriesWidget\" />
+		<Folder Include="Views\Shared\Components\ProductsWidget\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Components\" />
+		<None Remove="Views\Shared\Components\" />
+		<None Remove="Views\Shared\Components\CategoryEditWidget\" />
+		<None Remove="Views\Shared\Components\ProductEditWidget\" />
+		<None Remove="Views\Shared\Components\CategoriesWidget\" />
+		<None Remove="Views\Shared\Components\ProductsWidget\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="wwwroot\XmlData\log4net.config.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Business\Business.csproj" />
+		<ProjectReference Include="..\Entity\Entity.csproj" />
+	</ItemGroup>
 </Project>
