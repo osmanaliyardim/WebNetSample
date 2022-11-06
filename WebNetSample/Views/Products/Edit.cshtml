@@ -1,8 +1,9 @@
 ﻿@using WebNetSample.Entity.Dtos;
+@using WebNetSample.WebNetMVC.Components
 @model ProductDetailDto
 
 <p>
     <h3 class="text-warning">You are editing <span class="text-danger">@Model.Name</span> product</h3>
 </p>
 
-@await Component.InvokeAsync("ProductEditWidget");
+@await Component.InvokeAsync(nameof(ProductEditWidget));

@@ -1,4 +1,5 @@
 ﻿@using WebNetSample.Entity.Dtos;
+@using WebNetSample.WebNetMVC.Components
 @model IEnumerable<ProductDetailDto>
 
 @{
@@ -37,5 +38,5 @@
             <th>Operations</th>
         </tr>
     </thead>
-    @await Component.InvokeAsync("ProductsWidget");
+    @await Component.InvokeAsync(nameof(ProductsWidget));
 </table>

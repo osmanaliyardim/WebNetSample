@@ -1,4 +1,5 @@
 ﻿@using WebNetSample.Entity.Dtos;
+@using WebNetSample.WebNetMVC.Components
 @model CategoryDetailDto
 
 @section Scripts {
@@ -10,4 +11,4 @@
     <h3 class="text-warning">You are editing <span class="text-danger">@Model.Name</span> category</h3>
 </p>
 
-@await Component.InvokeAsync("CategoryEditWidget");
+@await Component.InvokeAsync(nameof(CategoryEditWidget));
