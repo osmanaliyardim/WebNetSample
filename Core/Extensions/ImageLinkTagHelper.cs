@@ -10,8 +10,7 @@ public class ImageLinkTagHelper : TagHelper
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        output.TagName = "div";
-        output.Content.AppendHtml($@"<a href=""/Categories/GetImageById/id={id}"" alt=""Click to see image in a new tab""></a>");
-        output.Attributes.Clear();
+        output.Attributes.SetAttribute("href", $"/Categories/GetImageById/id={id}");
+        output.Attributes.SetAttribute("alt", "Click to see image in a new tab");
     }
 }
