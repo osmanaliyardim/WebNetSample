@@ -2,15 +2,16 @@
 
 namespace WebNetSample.Core.Extensions;
 
-[HtmlTargetElement("imagelink", Attributes = "webnetsample-id")]
+[HtmlTargetElement("webnetsample-imagelink", TagStructure = TagStructure.NormalOrSelfClosing)]
 public class ImageLinkTagHelper : TagHelper
 {
-    [HtmlAttributeName("webnetsample-id")]
-    public string id { get; set; }
+    [HtmlAttributeName("image-id")]
+    public string? Id { get; set; }
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        output.Attributes.SetAttribute("href", $"/Categories/GetImageById/id={id}");
-        output.Attributes.SetAttribute("alt", "Click to see image in a new tab");
+        output.TagName = "a"; // Replaces <websamplenet-imagelink> with <a> tag
+        
+        output.Attributes.SetAttribute("href", $"/Categories/GetImageById/id={Id}");
     }
 }

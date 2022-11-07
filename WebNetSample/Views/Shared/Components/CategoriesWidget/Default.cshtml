@@ -13,9 +13,9 @@
                 @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
             <td>
-                <a webnetsample-id="@item.Id">
+                <webnetsample-imagelink image-id="@item.Id">
                     <img src="@item.ImagePath" alt="@item.Name" style="height:12.5%;width:15%;"> 
-                </a>
+                </webnetsample-imagelink>
             </td>
             <td>
                 <a class="btn btn-warning" asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id">EDIT</a>
