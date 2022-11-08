@@ -6,11 +6,11 @@ namespace WebNetSample.Core.Extensions;
 public class ImageLinkTagHelper : TagHelper
 {
     [HtmlAttributeName("image-id")]
-    public string? Id { get; set; }
+    public string Id { get; set; }
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        output.TagName = "a"; // Replaces <websamplenet-imagelink> with <a> tag
+        output.TagName = "a";
         
         output.Attributes.SetAttribute("href", $"/Categories/GetImageById/id={Id}");
     }
