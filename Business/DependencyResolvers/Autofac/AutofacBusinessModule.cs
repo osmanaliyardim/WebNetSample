@@ -6,7 +6,6 @@ using System.Reflection;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Business.Concrete;
 using WebNetSample.Core.Utilities.Interceptors;
-using AutoMapper;
 using WebNetSample.Core.CrossCuttingConcerns.Caching;
 using WebNetSample.Core.CrossCuttingConcerns.Caching.Microsoft;
 

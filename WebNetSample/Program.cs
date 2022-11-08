@@ -28,12 +28,6 @@ builder.Services.AddSingleton(mapper);
 
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
-builder.Services.AddDependencyResolvers(
-    new ICoreModule[]
-        {
-            new CoreModule()
-        });
-
 builder.Services.AddDataAccessServices(builder.Configuration);
 
 // Add services to the container.
@@ -54,10 +48,10 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseRouting();
 
 app.UseResponseCaching();
 
