@@ -20,14 +20,6 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
     new CoreModule()
 });
 
-var mapperConfig = new MapperConfiguration(config =>
-{
-    config.AddProfile(new MappingProfile());
-});
-
-IMapper mapper = mapperConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
-
 builder.Services.AddDataAccessServices(builder.Configuration);
 
 builder.Services.AddControllers();

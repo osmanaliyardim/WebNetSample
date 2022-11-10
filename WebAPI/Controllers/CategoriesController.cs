@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
+using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.WebAPI.Controllers;
 
@@ -14,10 +15,10 @@ public class CategoriesController : ControllerBase
         _categoryService = categoryService;
     }
 
-    [HttpGet("getall")]
-    public async Task<IActionResult> GetAll()
+    [HttpGet]
+    public async Task<ActionResult<List<CategoryDetailDto>>> GetAll()
     {
-        var result = _categoryService.GetAllAsync();
+        var result = await _categoryService.GetAllAsync();
 
         return Ok(result);
     }

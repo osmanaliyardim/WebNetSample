@@ -8,6 +8,8 @@ using WebNetSample.Business.Concrete;
 using WebNetSample.Core.Utilities.Interceptors;
 using WebNetSample.Core.CrossCuttingConcerns.Caching;
 using WebNetSample.Core.CrossCuttingConcerns.Caching.Microsoft;
+using AutoMapper;
+using Business.Mappings;
 
 namespace WebNetSample.Business.DependencyResolvers.Autofac;
 
@@ -22,6 +24,14 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
         
         builder.RegisterType<MemoryCacheManager>().As<ICacheService>().SingleInstance();
+
+        var mapperConfig = new MapperConfiguration(config =>
+        {
+            config.AddProfile(new MappingProfile());
+        });
+
+        IMapper mapper = mapperConfig.CreateMapper();
+        builder.RegisterInstance(mapper).As<Mapper>();
 
         var assembly = Assembly.GetExecutingAssembly();
         builder.RegisterAssemblyTypes(assembly)

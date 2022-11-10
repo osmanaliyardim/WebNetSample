@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebNetSample.Business.Abstract;
+using WebNetSample.Entity.Dtos;
 
 namespace WebNetSample.WebAPI.Controllers;
 
@@ -14,8 +15,8 @@ public class ProductsController : ControllerBase
         _productService = productService;
     }
 
-    [HttpGet("getall")]
-    public async Task<IActionResult> GetAll()
+    [HttpGet]
+    public async Task<ActionResult<List<ProductDetailDto>>> GetAll()
     {
         var result = await _productService.GetProductDetailsAsync();
 
