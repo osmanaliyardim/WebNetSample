@@ -22,4 +22,25 @@ public class CategoriesController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet]
+    public async Task<ActionResult<string>> GetImage(Guid id)
+    {
+        var result = await _categoryService.GetByIdAsync(id);
+
+        return Ok(result.ImagePath);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Task>> UpdateImage(CategoryDetailDto updatedCategory)
+    {
+        var result = _categoryService.UpdateAsync(updatedCategory);
+
+        if (result.IsCompletedSuccessfully)
+        {
+            return Ok(result);
+        }
+
+        return BadRequest(result);
+    }
 }

@@ -22,4 +22,43 @@ public class ProductsController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<Task>> Add(ProductDetailDto product)
+    {
+        var taskResult = _productService.AddAsync(product);
+
+        if (taskResult.IsCompletedSuccessfully)
+        {
+            return Ok(taskResult);
+        }
+
+        return BadRequest(taskResult);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Task>> Update(ProductDetailDto product)
+    {
+        var taskResult = _productService.UpdateAsync(product);
+
+        if (taskResult.IsCompletedSuccessfully)
+        {
+            return Ok(taskResult);
+        }
+
+        return BadRequest(taskResult.Status);
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult<Task>> Delete(ProductDetailDto product)
+    {
+        var taskResult = _productService.DeleteAsync(product);
+
+        if (taskResult.IsCompletedSuccessfully)
+        {
+            return Ok(taskResult);
+        }
+
+        return BadRequest(taskResult.Status);
+    }
 }
