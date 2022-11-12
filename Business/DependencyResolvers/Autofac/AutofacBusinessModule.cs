@@ -31,7 +31,7 @@ public class AutofacBusinessModule : Module
         });
 
         IMapper mapper = mapperConfig.CreateMapper();
-        builder.RegisterInstance(mapper).As<Mapper>();
+        builder.RegisterInstance(mapper).SingleInstance();
 
         var assembly = Assembly.GetExecutingAssembly();
         builder.RegisterAssemblyTypes(assembly)
