@@ -16,12 +16,8 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ProductDetailDto>>> GetAll()
-    {
-        var result = await _productService.GetProductDetailsAsync();
-
-        return Ok(result);
-    }
+    public async Task<ActionResult<List<ProductDetailDto>>> GetAll() =>
+              await _productService.GetProductDetailsAsync();
 
     [HttpPost]
     public async Task<ActionResult<Task>> Add(ProductDetailDto product)
@@ -30,33 +26,35 @@ public class ProductsController : ControllerBase
 
         if (taskResult.IsCompletedSuccessfully)
         {
-            return Ok(taskResult);
+            return taskResult;
         }
 
         return BadRequest(taskResult);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<Task>> Update(ProductDetailDto product)
+    [HttpPut]
+    public async Task<ActionResult<ProductDetailDto>> Update(ProductDetailDto product)
     {
-        var taskResult = _productService.UpdateAsync(product);
+        var result = await _productService.UpdateAsync(product);
 
-        if (taskResult.IsCompletedSuccessfully)
+        if(result != null)
         {
-            return Ok(taskResult);
+            return result;
         }
-
-        return BadRequest(taskResult.Status);
+ 
+        return BadRequest(result);
     }
 
-    [HttpDelete]
-    public async Task<ActionResult<Task>> Delete(ProductDetailDto product)
+    [HttpDelete("{id}:guid")]
+    public async Task<ActionResult<Task>> Delete(Guid id)
     {
-        var taskResult = _productService.DeleteAsync(product);
+        var productToDelete = _productService.GetByIdAsync(id);
+
+        var taskResult = _productService.DeleteAsync(productToDelete.Result);
 
         if (taskResult.IsCompletedSuccessfully)
         {
-            return Ok(taskResult);
+            return taskResult;
         }
 
         return BadRequest(taskResult.Status);

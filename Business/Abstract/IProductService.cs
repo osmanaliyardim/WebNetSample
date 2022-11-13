@@ -20,5 +20,5 @@ public interface IProductService
 
     Task DeleteAsync(ProductDetailDto product);
 
-    Task UpdateAsync(ProductDetailDto product);
+    Task<ProductDetailDto> UpdateAsync(ProductDetailDto product);
 }

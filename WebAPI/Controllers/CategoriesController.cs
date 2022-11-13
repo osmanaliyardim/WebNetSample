@@ -16,29 +16,25 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<CategoryDetailDto>>> GetAll()
-    {
-        var result = await _categoryService.GetAllAsync();
+    public async Task<ActionResult<List<CategoryDetailDto>>> GetAll() =>
+                await _categoryService.GetAllAsync();
 
-        return Ok(result);
-    }
-
-    [HttpGet]
+    [HttpGet("{id}:guid")]
     public async Task<ActionResult<string>> GetImage(Guid id)
     {
         var result = await _categoryService.GetByIdAsync(id);
 
-        return Ok(result.ImagePath);
+        return result.ImagePath;
     }
 
-    [HttpPost]
-    public async Task<ActionResult<Task>> UpdateImage(CategoryDetailDto updatedCategory)
+    [HttpPut]
+    public async Task<ActionResult<CategoryDetailDto>> UpdateImage(CategoryDetailDto updatedCategory)
     {
-        var result = _categoryService.UpdateAsync(updatedCategory);
+        var result = await _categoryService.UpdateAsync(updatedCategory);
 
-        if (result.IsCompletedSuccessfully)
+        if(result != null)
         {
-            return Ok(result);
+            return result;
         }
 
         return BadRequest(result);
