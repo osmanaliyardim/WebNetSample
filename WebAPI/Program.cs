@@ -1,7 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
-using Business.Mappings;
+using WebNetSample.Business.DependencyResolvers.Autofac;
 using WebNetSample.Core.DependencyResolvers;
 using WebNetSample.Core.Extensions;
 using WebNetSample.Core.Utilities.IoC;
@@ -12,8 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+     options.AddDefaultPolicy(builder =>
+        builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()));
+
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacDependencyResolver()));
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 builder.Services.AddDependencyResolvers(new ICoreModule[]
 {
@@ -38,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
