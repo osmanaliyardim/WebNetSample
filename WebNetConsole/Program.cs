@@ -5,13 +5,12 @@ client.DefaultRequestHeaders.Add("User-Agent", "EPAM WEB .NET Mentoring Program"
 
 await ProcessRepositoriesAsync(client);
 
+const string url = "https://localhost:7065/api/";
+
 static async Task ProcessRepositoriesAsync(HttpClient client)
 {
-    var categoriesJson = await client.GetStringAsync(
-    "https://localhost:7065/api/Categories/");
-
-    var productsJson = await client.GetStringAsync(
-    "https://localhost:7065/api/Products/");
+    var categoriesJson = await client.GetStringAsync(url + "categories");
+    var productsJson = await client.GetStringAsync(url + "products");
 
     Console.Write(categoriesJson);
     Console.Write(productsJson);

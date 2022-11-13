@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        const url = 'https://localhost:7065/api/';
+
+        fetch(url + 'products')
+            .then((products) => products.json())
+            .then((data) => console.log(data));
+
+        fetch(url + 'categories')
+            .then((categories) => categories.json())
+            .then((data) => console.log(data));
+    </script>
+</body>
+</html>
