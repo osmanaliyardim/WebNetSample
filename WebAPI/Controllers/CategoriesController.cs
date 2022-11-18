@@ -32,7 +32,7 @@ public class CategoriesController : ControllerBase
     {
         var result = await _categoryService.UpdateAsync(updatedCategory);
 
-        if(result != null)
+        if (result != null)
         {
             return result;
         }

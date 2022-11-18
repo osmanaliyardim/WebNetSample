@@ -37,7 +37,7 @@ public class ProductsController : ControllerBase
     {
         var result = await _productService.UpdateAsync(product);
 
-        if(result != null)
+        if (result != null)
         {
             return result;
         }
@@ -45,7 +45,7 @@ public class ProductsController : ControllerBase
         return BadRequest(result);
     }
 
-    [HttpDelete("{id}:guid")]
+    [HttpDelete("{id:guid}")]
     public async Task<ActionResult<Task>> Delete(Guid id)
     {
         var productToDelete = _productService.GetByIdAsync(id);
