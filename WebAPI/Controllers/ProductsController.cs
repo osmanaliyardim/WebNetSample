@@ -18,7 +18,7 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Gets all Products.
     /// </summary>
-    /// <returns>List of Products</returns>
+    /// <returns>All of Products</returns>
     [HttpGet]
     public async Task<ActionResult<List<ProductDetailDto>>> GetAll() =>
               await _productService.GetProductDetailsAsync();
@@ -26,9 +26,24 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Posts a specific Product.
     /// </summary>
-    /// <param name="product"></param>
-    /// <returns>Task Result</returns>
+    /// <param name="product">Product To Be Added</param>
+    /// <returns></returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     Post /Products
+    ///     {
+    ///        "Name": "Biscuit",
+    ///        "ImagePath": "/Images/Biscuit.jpg",
+    ///        "CategoryName": "Food",
+    ///        "SupplierName": "Ülker"
+    ///     }
+    /// </remarks>
+    /// <response code="200">Returns Ok if the is successfull</response>
+    /// <response code="400">If there is no item with the given id</response>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Task>> Add(ProductDetailDto product)
     {
         var taskResult = _productService.AddAsync(product);
@@ -44,9 +59,25 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Updates a specific Product.
     /// </summary>
-    /// <param name="product"></param>
+    /// <param name="product">Product To Be Updated</param>
     /// <returns>Updated Product</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     Put /Products
+    ///     {
+    ///        "Id": "031ec27b-f9e4-428f-9a42-292080fe9954",
+    ///        "Name": "Biscuit",
+    ///        "ImagePath": "/Images/Biscuit.jpg",
+    ///        "CategoryName": "Food",
+    ///        "SupplierName": "Ülker"
+    ///     }
+    /// </remarks>
+    /// <response code="200">Returns Ok if the is successfull</response>
+    /// <response code="400">If there is no item with the given id</response>
     [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ProductDetailDto>> Update(ProductDetailDto product)
     {
         var result = await _productService.UpdateAsync(product);
@@ -62,7 +93,7 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Removes a specific Product.
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">Product Id</param>
     /// <returns>Task Result</returns>
     /// <remarks>
     /// Sample request:

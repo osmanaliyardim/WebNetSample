@@ -18,7 +18,7 @@ public class CategoriesController : ControllerBase
     /// <summary>
     /// Gets all Categories.
     /// </summary>
-    /// <returns>List of Categories</returns>
+    /// <returns>All of Categories</returns>
     [HttpGet]
     public async Task<ActionResult<List<CategoryDetailDto>>> GetAll() =>
                 await _categoryService.GetAllAsync();
@@ -26,8 +26,16 @@ public class CategoriesController : ControllerBase
     /// <summary>
     /// Gets a specific Image.
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns>ImagePath</returns>
+    /// <param name="id">Image Id</param>
+    /// <returns>A specific Image</returns>
+    // <remarks>
+    /// Sample request:
+    ///
+    ///     Get /Categories
+    ///     {
+    ///        "Id": "031ec27b-f9e4-428f-9a42-292080fe9954"
+    ///     }
+    /// </remarks>
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<string>> GetImage(Guid id)
     {
@@ -39,9 +47,23 @@ public class CategoriesController : ControllerBase
     /// <summary>
     /// Updates a specific Image.
     /// </summary>
-    /// <param name="updatedCategory"></param>
+    /// <param name="updatedCategory">Updated Category</param>
     /// <returns>Updated Category</returns>
+    // <remarks>
+    /// Sample request:
+    ///
+    ///     Put /Categories
+    ///     {
+    ///        "Id": "031ec27b-f9e4-428f-9a42-292080fe9954",
+    ///        "Name": "Food",
+    ///        "ImagePath": "/Images/Food.jpg"
+    ///     }
+    /// </remarks>
+    /// <response code="200">Returns Ok if the is successfull</response>
+    /// <response code="400">If there is no item with the given id</response>
     [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<CategoryDetailDto>> UpdateImage(CategoryDetailDto updatedCategory)
     {
         var result = await _categoryService.UpdateAsync(updatedCategory);
