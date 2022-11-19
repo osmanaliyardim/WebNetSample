@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using WebNetSample.Core.Aspects.Logging;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using WebNetSample.Business.Abstract;
 using WebNetSample.Core.Aspects.Caching;
 using WebNetSample.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
@@ -43,11 +42,13 @@ public class ProductManager : IProductService
 
 
     [CacheRemoveAspect("IProductService.Get")]
-    public async Task UpdateAsync(ProductDetailDto product)
+    public async Task<ProductDetailDto> UpdateAsync(ProductDetailDto product)
     {
         var mappedProduct = _mapper.Map<Product>(product);
 
         await _productRepository.UpdateAsync(mappedProduct);
+
+        return product;
     }
 
 

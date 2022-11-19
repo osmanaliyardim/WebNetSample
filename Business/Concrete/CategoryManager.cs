@@ -43,7 +43,7 @@ public class CategoryManager : ICategoryService
     }
         
 
-    public async Task UpdateAsync(CategoryDetailDto category)
+    public async Task<CategoryDetailDto> UpdateAsync(CategoryDetailDto category)
     {
         var categoryInfo = _mapper.Map<Category>(category);
 
@@ -69,5 +69,7 @@ public class CategoryManager : ICategoryService
         categoryInfo.ImagePath = imageDirectory + FileName;
 
         await _categoryRepository.UpdateAsync(categoryInfo);
+
+        return category;
     }
 }

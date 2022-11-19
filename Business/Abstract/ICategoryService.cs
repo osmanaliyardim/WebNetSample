@@ -10,5 +10,5 @@ public interface ICategoryService
 
     Task AddAsync(CategoryDetailDto category);
 
-    Task UpdateAsync(CategoryDetailDto category);
+    Task<CategoryDetailDto> UpdateAsync(CategoryDetailDto category);
 }
