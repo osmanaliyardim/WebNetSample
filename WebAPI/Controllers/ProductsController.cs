@@ -20,16 +20,11 @@ public class ProductsController : ControllerBase
               await _productService.GetProductDetailsAsync();
 
     [HttpPost]
-    public async Task<ActionResult<Task>> Add(ProductDetailDto product)
+    public async Task<ActionResult> Add(ProductDetailDto product)
     {
-        var taskResult = _productService.AddAsync(product);
+        await _productService.AddAsync(product);
 
-        if (taskResult.IsCompletedSuccessfully)
-        {
-            return taskResult;
-        }
-
-        return BadRequest(taskResult);
+        return RedirectToAction("Index");
     }
 
     [HttpPut]
@@ -48,15 +43,10 @@ public class ProductsController : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult<Task>> Delete(Guid id)
     {
-        var productToDelete = _productService.GetByIdAsync(id);
+        var productToDelete = await _productService.GetByIdAsync(id);
 
-        var taskResult = _productService.DeleteAsync(productToDelete.Result);
+        await _productService.DeleteAsync(productToDelete);
 
-        if (taskResult.IsCompletedSuccessfully)
-        {
-            return taskResult;
-        }
-
-        return BadRequest(taskResult.Status);
+        return RedirectToAction("Index");
     }
 }
