@@ -46,14 +46,9 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Task>> Add(ProductDetailDto product)
     {
-        var taskResult = _productService.AddAsync(product);
+        await _productService.AddAsync(product);
 
-        if (taskResult.IsCompletedSuccessfully)
-        {
-            return taskResult;
-        }
-
-        return BadRequest(taskResult);
+        return RedirectToAction("Index");
     }
 
     /// <summary>
@@ -89,7 +84,7 @@ public class ProductsController : ControllerBase
 
         return BadRequest(result);
     }
-
+    
     /// <summary>
     /// Removes a specific Product.
     /// </summary>
@@ -111,14 +106,8 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<Task>> Delete(Guid id)
     {
         var productToDelete = await _productService.GetByIdAsync(id);
+        await _productService.DeleteAsync(productToDelete);
 
-        var taskResult = _productService.DeleteAsync(productToDelete);
-
-        if (taskResult.IsCompletedSuccessfully)
-        {
-            return taskResult;
-        }
-
-        return BadRequest(taskResult.Status);
+        return RedirectToAction("Index");
     }
 }
