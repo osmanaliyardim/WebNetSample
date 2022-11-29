@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebNetSample.DataAccess.Abstract;
@@ -15,6 +16,18 @@ public static class DataAccessServiceRegistration
         services.AddDbContext<WebNetSampleDBContext>(options =>
                                                  options.UseSqlServer(
                                                      configuration.GetConnectionString("WebNetSampleConnectionStringForWindows")));
+
+        services.AddDefaultIdentity<IdentityUser>
+            (options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
+        .AddEntityFrameworkStores<WebNetSampleDBContext>();
 
         services.AddSingleton<ISupplierRepository, EfSupplierRepository>();
         services.AddSingleton<IProductRepository, EfProductRepository>();

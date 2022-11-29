@@ -1,11 +1,13 @@
 ﻿using DataAccess.Concrete.EntityFramework.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebNetSample.Entity.Concrete;
 
 namespace WebNetSample.DataAccess.Concrete.EntityFramework.Contexts;
 
-public class WebNetSampleDBContext : DbContext
+public class WebNetSampleDBContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {
     protected IConfiguration Configuration { get; set; }
 
@@ -25,5 +27,7 @@ public class WebNetSampleDBContext : DbContext
         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+
+        base.OnModelCreating(modelBuilder);
     }
 }

@@ -1,8 +1,8 @@
-﻿using Autofac;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
-using Business.Mappings;
+using WebNetSample.Business;
 using WebNetSample.Business.DependencyResolvers.Autofac;
+using WebNetSample.Business.Startup;
 using WebNetSample.Core.DependencyResolvers;
 using WebNetSample.Core.Extensions;
 using WebNetSample.Core.Utilities.IoC;
@@ -22,8 +22,14 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterMod
 
 builder.Services.AddDataAccessServices(builder.Configuration);
 
+var appSettings = builder.Configuration.ReadAppSettings();
+appSettings.Validate();
+
+builder.Services.AddBusinessServices(appSettings);
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -57,6 +63,8 @@ app.UseEndpoints(options =>
     options.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    options.MapRazorPages();
 });
 
 app.Run();
