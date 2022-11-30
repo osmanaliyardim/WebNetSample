@@ -1,8 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using WebNetSample.Business;
 using WebNetSample.Business.DependencyResolvers.Autofac;
-using WebNetSample.Business.Startup;
 using WebNetSample.Core.DependencyResolvers;
 using WebNetSample.Core.Extensions;
 using WebNetSample.Core.Utilities.IoC;
@@ -26,6 +28,18 @@ var appSettings = builder.Configuration.ReadAppSettings();
 appSettings.Validate();
 
 builder.Services.AddBusinessServices(appSettings);
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+
+builder.Services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+{
+    options.Authority = options.Authority + "/v2.0/";
+    options.TokenValidationParameters.ValidateIssuer = false;
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
