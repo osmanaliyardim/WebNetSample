@@ -5,11 +5,9 @@ namespace WebNetSample.Business;
 
 public static class BusinessServiceRegistration
 {
-    public static IServiceCollection AddBusinessServices(this IServiceCollection services,
+    public static void AddBusinessServices(this IServiceCollection services,
                                                             AppSettings appSettings)
     {
         services.AddSingleton(appSettings);
-
-        return services;
     }
 }

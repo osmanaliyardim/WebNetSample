@@ -2,7 +2,6 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using WebNetSample.Business;
 using WebNetSample.Business.DependencyResolvers.Autofac;
-using WebNetSample.Business.Startup;
 using WebNetSample.Core.DependencyResolvers;
 using WebNetSample.Core.Extensions;
 using WebNetSample.Core.Utilities.IoC;
