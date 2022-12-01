@@ -32,7 +32,11 @@ public static class DataAccessServiceRegistration
         .AddEntityFrameworkStores<WebNetSampleDBContext>();
 
         services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-            .AddAzureAD(options => { configuration.Bind("AzureAd", options); options.CookieSchemeName = IdentityConstants.ExternalScheme; });
+            .AddAzureAD(options =>
+            {
+                configuration.Bind("AzureAd", options);
+                options.CookieSchemeName = IdentityConstants.ApplicationScheme;
+            });
 
         services.AddSingleton<ISupplierRepository, EfSupplierRepository>();
         services.AddSingleton<IProductRepository, EfProductRepository>();
