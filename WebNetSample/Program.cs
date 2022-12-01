@@ -1,7 +1,8 @@
-﻿using Autofac;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
-using Business.Mappings;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using WebNetSample.Business;
 using WebNetSample.Business.DependencyResolvers.Autofac;
 using WebNetSample.Core.DependencyResolvers;
 using WebNetSample.Core.Extensions;
@@ -21,9 +22,27 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 builder.Services.AddDataAccessServices(builder.Configuration);
+    
+var appSettings = builder.Configuration.ReadAppSettings();
+appSettings.Validate();
+
+builder.Services.AddBusinessServices(appSettings);
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+
+builder.Services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+{
+    options.Authority = options.Authority + "/v2.0/";
+    options.TokenValidationParameters.ValidateIssuer = false;
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -57,6 +76,8 @@ app.UseEndpoints(options =>
     options.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    options.MapRazorPages();
 });
 
 app.Run();

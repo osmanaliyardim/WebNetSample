@@ -10,6 +10,7 @@ using WebNetSample.Core.CrossCuttingConcerns.Caching;
 using WebNetSample.Core.CrossCuttingConcerns.Caching.Microsoft;
 using AutoMapper;
 using Business.Mappings;
+using WebNetSample.Business.Startup;
 
 namespace WebNetSample.Business.DependencyResolvers.Autofac;
 
@@ -24,6 +25,8 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<SupplierManager>().As<ISupplierService>().SingleInstance();
         
         builder.RegisterType<MemoryCacheManager>().As<ICacheService>().SingleInstance();
+
+        builder.RegisterType<EmailManager>().As<IEmailService>().SingleInstance();
 
         var mapperConfig = new MapperConfiguration(config =>
         {
