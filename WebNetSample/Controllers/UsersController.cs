@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebNetMVC.Areas.Identity.Roles;
 
 namespace WebNetMVC.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = Role.Admin)]
     public class UsersController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
