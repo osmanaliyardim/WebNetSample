@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +29,15 @@ public static class DataAccessServiceRegistration
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             })
+        .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<WebNetSampleDBContext>();
+
+        services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+            .AddAzureAD(options =>
+            {
+                configuration.Bind("AzureAd", options);
+                options.CookieSchemeName = IdentityConstants.ApplicationScheme;
+            });
 
         services.AddSingleton<ISupplierRepository, EfSupplierRepository>();
         services.AddSingleton<IProductRepository, EfProductRepository>();
