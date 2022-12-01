@@ -29,6 +29,7 @@ public static class DataAccessServiceRegistration
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             })
+        .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<WebNetSampleDBContext>();
 
         services.AddAuthentication(AzureADDefaults.AuthenticationScheme)

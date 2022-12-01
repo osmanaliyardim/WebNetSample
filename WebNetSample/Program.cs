@@ -1,6 +1,5 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using WebNetSample.Business;
@@ -23,7 +22,7 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 builder.Services.AddDataAccessServices(builder.Configuration);
-
+    
 var appSettings = builder.Configuration.ReadAppSettings();
 appSettings.Validate();
 
