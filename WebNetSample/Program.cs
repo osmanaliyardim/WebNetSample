@@ -42,9 +42,13 @@ builder.Services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, o
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
+
+builder.Services.AddWebOptimizer();
 
 var app = builder.Build();
+var mvcBuilder = builder.Services.AddRazorPages();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -54,8 +58,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
     app.ConfigureCustomExceptionMiddleware();
 }
+else
+{
+    mvcBuilder.AddRazorRuntimeCompilation();
+}
 
 app.UseHttpsRedirection();
+
+app.UseWebOptimizer();
 
 app.UseStaticFiles();
 
